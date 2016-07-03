@@ -1,0 +1,36 @@
+var path = require('path')
+var webpack = require('webpack')
+var NpmInstallPlugin = require('npm-install-webpack-plugin');
+
+module.exports = {
+    devtool: 'source-map',
+    entry: [
+        'babel-polyfill',
+        './web/client/src/index'
+    ],
+    output: {
+        path: path.join(__dirname, 'web/js'),
+        filename: 'bundle.js',
+        publicPath: '/web/js/'
+    },
+    plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new NpmInstallPlugin()
+    ],
+    module: { //Обновлено
+        loaders: [ //добавили babel-loader
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader"
+            },
+            {
+                loaders: ['babel-loader'],
+                include: [
+                    path.resolve(__dirname, "web/client/src"),
+                ],
+                test: /\.js$/,
+                plugins: ['transform-runtime'],
+            }
+        ]
+    }
+}

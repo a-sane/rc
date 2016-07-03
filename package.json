@@ -1,0 +1,41 @@
+{
+  "name": "redux-ru-tutorial",
+  "version": "1.0.0",
+  "description": "Redux RU tutorial",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Maxim Patsianskiy",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-eslint": "^6.0.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-runtime": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "0.23.1",
+    "eslint": "^2.12.0",
+    "eslint-plugin-react": "^5.1.1",
+    "express": "^4.13.4",
+    "npm-install-webpack-plugin": "^4.0.3",
+    "webpack": "^1.13.1",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.10.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.9.1",
+    "imports-loader": "0.6.5",
+    "rc-color-picker": "1.0.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "4.4.5",
+    "react-router": "2.5.1",
+    "redux": "3.5.2",
+    "redux-logger": "2.6.1",
+    "redux-thunk": "2.1.0",
+    "scene": "0.1.0",
+    "style-loader": "0.13.1",
+    "three": "0.78.0"
+  }
+}
