@@ -14,67 +14,14 @@ class Home extends Component {
                             <div className="grid-in">
                                 <div className="col-md-4 grid-top">
                                     <Link to='/item' className="b-link-stripe b-animate-go  thickbox">
-                                        <img className="img-responsive" src="images/pi.jpg" alt="" />
+                                        <img className="img-responsive" src="model/car_sample.png" alt="" />
                                         <div className="b-wrapper">
                                             <h3 className="b-animate b-from-left    b-delay03 ">
-                                                <span>T-Shirt</span>
+                                                <span>RC Car</span>
                                             </h3>
                                         </div>
                                     </Link>
-                                    <p><Link to="/item">Contrary to popular</Link></p>
-                                </div>
-                                <div className="col-md-4 grid-top">
-                                    <a href="single.html" className="b-link-stripe b-animate-go  thickbox"><img className="img-responsive" src="images/pi1.jpg" alt="" />
-                                        <div className="b-wrapper">
-                                            <h3 className="b-animate b-from-left    b-delay03 ">
-                                                <span>Shoe</span>
-                                            </h3>
-                                        </div>
-                                    </a>
-                                    <p><a href="single.html">classical Latin</a></p>
-                                </div>
-                                <div className="col-md-4 grid-top">
-                                    <a href="single.html" className="b-link-stripe b-animate-go  thickbox"><img className="img-responsive" src="images/pi2.jpg" alt="" />
-                                        <div className="b-wrapper">
-                                            <h3 className="b-animate b-from-left    b-delay03 ">
-                                                <span>Bag</span>
-                                            </h3>
-                                        </div>
-                                    </a>
-                                    <p><a href="single.html">undoubtable</a></p>
-                                </div>
-                                <div className="clearfix"> </div>
-                            </div>
-                            <div className="grid-in">
-                                <div className="col-md-4 grid-top">
-                                    <a href="single.html" className="b-link-stripe b-animate-go  thickbox"><img className="img-responsive" src="images/pi3.jpg" alt="" />
-                                        <div className="b-wrapper">
-                                            <h3 className="b-animate b-from-left    b-delay03 ">
-                                                <span>Shirt</span>
-                                            </h3>
-                                        </div>
-                                    </a>
-                                    <p><a href="single.html">suffered alteration</a></p>
-                                </div>
-                                <div className="col-md-4 grid-top">
-                                    <a href="single.html" className="b-link-stripe b-animate-go  thickbox"><img className="img-responsive" src="images/pi4.jpg" alt="" />
-                                        <div className="b-wrapper">
-                                            <h3 className="b-animate b-from-left    b-delay03 ">
-                                                <span>Bag</span>
-                                            </h3>
-                                        </div>
-                                    </a>
-                                    <p><a href="single.html">Content here</a></p>
-                                </div>
-                                <div className="col-md-4 grid-top">
-                                    <a href="single.html" className="b-link-stripe b-animate-go  thickbox"><img className="img-responsive" src="images/pi5.jpg" alt="" />
-                                        <div className="b-wrapper">
-                                            <h3 className="b-animate b-from-left    b-delay03 ">
-                                                <span>Shoe</span>
-                                            </h3>
-                                        </div>
-                                    </a>
-                                    <p><a href="single.html">readable content</a></p>
+                                    <p><Link to="/item">RC Car</Link></p>
                                 </div>
                                 <div className="clearfix"> </div>
                             </div>
