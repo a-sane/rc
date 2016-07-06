@@ -5,33 +5,28 @@ import Controls from './Controls'
 import {uniqueId} from 'lodash'
 
 import Scene from '../components/Scene'
-import {setSceneCanvas} from '../actions/SceneActions'
+import {setSceneCanvas, setSceneObject, setSceneMaterial, setSceneLogos} from '../actions/SceneActions'
 
-import {addToCart} from '../actions/ItemActions'
+import {addToCart} from '../actions/CartActions'
 
 class Item extends Component {
-    static propTypes = {
-        addToCart: PropTypes.func
-    }
-
-    static defaultProps = {
-        addToCart: () => {},
-    }
 
     onAddToCartClick(e) {
         e.preventDefault();
         const item = {
             id: uniqueId('cart_item_'),
             texturePath: this.props.textureControl.texturePath,
-            logoPath: this.props.logoControl.logoPath,
             color: this.props.colorControl.color ? this.props.colorControl.color : '#ff0000',
-            screenshot: this.props.scene.canvas.toDataURL()
+            screenshot: this.props.scene.canvas.toDataURL(),
+            logos: this.props.scene.logos,
+            price: this.props.item.price,
+            name: this.props.item.name
         }
         this.props.addToCart(item);
     }
 
     render() {
-        const {textureControl, logoControl, colorControl, scene} = this.props
+        const {textureControl, logoControl, colorControl, scene, item} = this.props
 
         return (
             <div className="product">
@@ -39,13 +34,11 @@ class Item extends Component {
                     <div className="col-md-12 product-price1">
                         <div className="col-md-12 single-top-in simpleCart_shelfItem">
                             <div className="single-para ">
-                                <h4>Lorem Ipsum</h4>
+                                <h4>{item.name}</h4>
 
-                                <h5 className="item_price">$ 2595.00</h5>
+                                <h5 className="item_price">$ {item.price}</h5>
 
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                                    diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                    magna aliquam erat </p>
+                                <p>{item.description}</p>
 
                                 <Controls />
                                 <Scene
@@ -53,7 +46,13 @@ class Item extends Component {
                                     {...logoControl}
                                     {...colorControl}
                                     canvas={scene.canvas}
+                                    object={scene.object}
+                                    material={scene.material}
+                                    logos={scene.logos}
                                     setSceneCanvas={this.props.setSceneCanvas}
+                                    setSceneObject={this.props.setSceneObject}
+                                    setSceneMaterial={this.props.setSceneMaterial}
+                                    setSceneLogos={this.props.setSceneLogos}
                                 />
                                 <a href="#" className="add-cart item_add" onClick={::this.onAddToCartClick}>ADD TO CART</a>
                             </div>
@@ -71,13 +70,17 @@ function mapStateToProps(state) {
         textureControl: state.textureControl,
         logoControl: state.logoControl,
         colorControl: state.colorControl,
-        scene: state.scene
+        scene: state.scene,
+        item: state.item
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         setSceneCanvas: bindActionCreators(setSceneCanvas, dispatch),
+        setSceneObject: bindActionCreators(setSceneObject, dispatch),
+        setSceneMaterial: bindActionCreators(setSceneMaterial, dispatch),
+        setSceneLogos: bindActionCreators(setSceneLogos, dispatch),
         addToCart: bindActionCreators(addToCart, dispatch)
     }
 }

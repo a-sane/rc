@@ -1,13 +1,13 @@
-export function removeFromCart(item) {
-    return {
-        type: 'CART_REMOVE_ITEM',
-        payload: item
-    }
-}
-
 export function emptyCart() {
     return {
         type: 'CART_EMPTY',
         payload: []
+    }
+}
+
+export function addToCart(item) {
+    return {
+        type: 'CART_ADD_ITEM',
+        payload: item
     }
 }

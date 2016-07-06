@@ -19,7 +19,15 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "sonata-project/admin-bundle": "^3.4",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.0",
+        "sonata-project/easy-extends-bundle": "^2.1",
+        "sonata-project/user-bundle": "^3.0",
+        "friendsofsymfony/rest-bundle": "^1.1",
+        "nelmio/api-doc-bundle": "^2.13",
+        "cloudinary/cloudinary_php": "^1.4",
+        "speicher210/cloudinary-bundle": "^0.4.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

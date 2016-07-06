@@ -12,6 +12,10 @@ class CartOrder extends Component {
         this.props.cartOrderActions.removeFromCart(id);
     }
 
+    placeOrder(items) {
+        this.props.cartOrderActions.placeOrder(items);
+    }
+
     render() {
         const {cart} = this.props;
         return (
@@ -27,13 +31,12 @@ class CartOrder extends Component {
                                         <img src={item.screenshot} className="img-responsive" alt=""/>
                                     </div>
                                     <div className="cart-item-info">
-                                        <h3><Link to="/item">Car</Link></h3>
+                                        <h3><Link to="/item">{item.name}</Link></h3>
                                         <ul className="qty">
                                             <li><p>Size : 5</p></li>
                                         </ul>
 
                                         <div className="delivery">
-                                            <p>Service Charges : Rs.100.00</p>
                                             <span>Delivered in 2-3 bussiness days</span>
                                             <div className="clearfix"></div>
                                         </div>
@@ -49,7 +52,7 @@ class CartOrder extends Component {
                             <li className="last_price"><span>6350.00</span></li>
                             <div className="clearfix"></div>
                         </ul>
-                        <a className="continue" href="#">Place Order</a>
+                        <button className="continue" onClick={()=>(::this.placeOrder(cart.items))}>Place Order</button>
                     </div>
 
                     <div className="clearfix"></div>

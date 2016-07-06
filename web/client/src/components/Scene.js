@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
-import THREE from 'three';;
+import THREE from 'three';
+;
 
 import OBJLoader from '../threeUtils/OBJLoader';
 OBJLoader(THREE);
@@ -33,19 +34,19 @@ export default class Scene extends Component {
             alpha: true,
             preserveDrawingBuffer: true
         });
-        this.renderer.setSize( width, height );
+        this.renderer.setSize(width, height);
         this.renderer.setClearColor(0x0ffffff);
 
-        this.camera = new THREE.PerspectiveCamera( 50, width / height, 1, 10000 );
+        this.camera = new THREE.PerspectiveCamera(50, width / height, 1, 10000);
         this.camera.position.set(6.488599279357978, 5.674960903990429, 6.501762258406836);
         this.camera.lookAt(new THREE.Vector3());
 
         this.car = null;
         this.carMaterial = null;
 
-        this.activeObjects = ['DoorLeft_logo', 'DoorRight_logo', 'Front_logo', 'Roof_logo'];
+        this.activeObjects = null;
 
-        this.mouse = { x: 0, y: 0 };
+        this.mouse = {x: 0, y: 0};
 
         this.targetList = [];
 
@@ -53,13 +54,12 @@ export default class Scene extends Component {
     }
 
     threeRender() {
-        this.renderer.render( this.scene, this.camera );
+        this.renderer.render(this.scene, this.camera);
     }
 
-    onCanvasMouseMove(event)
-    {
+    onCanvasMouseMove(event) {
         this.mouse.x = (event.offsetX / 800) * 2 - 1;
-        this.mouse.y = - (event.offsetY / 500) * 2 + 1;
+        this.mouse.y = -(event.offsetY / 500) * 2 + 1;
 
         var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 1);
         vector.unproject(this.camera);
@@ -67,47 +67,46 @@ export default class Scene extends Component {
 
         var intersects = ray.intersectObjects(this.targetList, true);
 
-        if (intersects.length > 0)
-        {
-            if(!intersects[0].object.loged) {
-                this.activeObjects.forEach((item, i, arr) => {
+        if (intersects.length > 0) {
+            if (!intersects[0].object.loged) {
+                for (var item in this.activeObjects) {
                     var obj = this.scene.getObjectByName(item);
-                    if(!obj.loged){
+                    if (!obj.loged) {
                         obj.material = new THREE.MeshPhongMaterial({
                             transparent: true,
                             opacity: 0,
-                            color:  new THREE.Color(1, 1, 1)
+                            color: new THREE.Color(1, 1, 1)
                         });
                         obj.material.needsUpdate = true;
-                        this.threeRender();
                     }
                     if (intersects[0].object.name == item) {
                         intersects[0].object.callback();
                     }
-                });
+                    this.threeRender();
+                }
             }
         }
 
     }
 
-    onCanvasMouseDown(event)
-    {
+    onCanvasMouseDown(event) {
         this.mouse.x = (event.offsetX / 800) * 2 - 1;
-        this.mouse.y = - (event.offsetY / 500) * 2 + 1;
+        this.mouse.y = -(event.offsetY / 500) * 2 + 1;
 
         var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 1);
         vector.unproject(this.camera);
-        var ray = new THREE.Raycaster(this.camera.position, vector.sub(this.camera.position).normalize() );
+        var ray = new THREE.Raycaster(this.camera.position, vector.sub(this.camera.position).normalize());
 
         var intersects = ray.intersectObjects(this.targetList, true);
 
-        if (intersects.length > 0)
-        {
-            this.activeObjects.forEach((item, i, arr) => {
+        if (intersects.length > 0) {
+            for (var item in this.activeObjects) {
                 if (intersects[0].object.name == item) {
                     var texture, material;
-                    if(this.logoPath){
-                        texture = new THREE.TextureLoader().load(this.logoPath, () => {::this.threeRender()});
+                    if (this.logoPath) {
+                        texture = new THREE.TextureLoader().load(this.logoPath, () => {
+                            ::this.threeRender()
+                        });
                         texture.anisotropy = 3;
 
                         material = new THREE.MeshPhongMaterial({
@@ -115,6 +114,7 @@ export default class Scene extends Component {
                             transparent: true,
                         });
                         intersects[0].object.loged = true;
+                        this.activeObjects[item] = this.logoPath;
                     } else {
                         material = new THREE.MeshPhongMaterial({
                             map: false,
@@ -122,17 +122,21 @@ export default class Scene extends Component {
                             opacity: 0
                         });
                         intersects[0].object.loged = false;
+                        this.activeObjects[item] = null;
                     }
 
                     intersects[0].object.material = material;
                     intersects[0].object.material.needsUpdate = true;
                     this.threeRender();
+                    this.props.setSceneLogos(this.activeObjects);
                 }
-            });
+            }
         }
     }
 
     componentDidMount() {
+        this.activeObjects = this.props.logos;
+
         let container = this.refs.container;
 
         let directionalLight = new THREE.DirectionalLight(0xffffff, 2);
@@ -149,15 +153,16 @@ export default class Scene extends Component {
 
         let directionalLight4 = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight4.position.set(-4, 0, 0);
-        this.scene.add(directionalLight4 );
+        this.scene.add(directionalLight4);
 
 
         let loader = new THREE.OBJLoader();
         let mtlLoader = new THREE.MTLLoader();
-        new Promise(resolve => {
+        if (!this.props.object) {
             mtlLoader.load('model/car4.mtl', (material) => {
                 material.preload();
                 this.carMaterial = material;
+                this.props.setSceneMaterial(this.carMaterial);
                 loader.setMaterials(this.carMaterial);
                 loader.load('model/car4.obj', (geometry) => {
                     this.car = geometry;
@@ -167,12 +172,12 @@ export default class Scene extends Component {
                             texture.anisotropy = 3;
                             texture.wrapS = THREE.RepeatWrapping;
                             texture.wrapT = THREE.RepeatWrapping;
-                            texture.repeat.set( 1, 1 );
+                            texture.repeat.set(1, 1);
 
-                            child.material = new THREE.MeshPhongMaterial( {
+                            child.material = new THREE.MeshPhongMaterial({
                                 map: texture,
                                 transparent: true
-                            } );
+                            });
                             child.material.needsUpdate = true;
                         }
 
@@ -180,52 +185,48 @@ export default class Scene extends Component {
                             child.material.side = THREE.DoubleSide;
                             child.material.needsUpdate = true;
 
-                            this.activeObjects.forEach((item, i, arr) => {
-                                if(child.name == item){
+                            for (var item in this.activeObjects) {
+                                if (child.name == item) {
                                     var tr = ::this.threeRender;
-                                    child.callback = function() {
+                                    child.callback = function () {
                                         this.material = new THREE.MeshPhongMaterial({
                                             transparent: false,
-                                            color:  new THREE.Color(0, 0.4, 0)
+                                            color: new THREE.Color(0, 0.4, 0)
                                         });
 
                                         this.material.needsUpdate = true;
                                         tr();
                                     }
                                 }
-                            });
+                            }
                         }
                     });
 
-                    material.materials.Main_color.color = new THREE.Color(0.9, 0, 0);
-                    material.materials.Main_color.reflectivity = 0.5;
-                    geometry.position.y = -2;
+                    this.carMaterial.materials.Main_color.color = new THREE.Color(0.9, 0, 0);
+                    this.carMaterial.materials.Main_color.reflectivity = 0.5;
+                    this.car.position.y = -2;
 
                     this.scene.add(this.car);
                     this.threeRender();
                     this.targetList.push(this.car);
-
-                    resolve();
+                    this.props.setSceneObject(this.car);
                 });
             });
-        }).then(() => {
-            const { texturePath, color } = this.props;
+        } else {
+            this.carMaterial = this.props.material;
+            this.car = this.props.object;
 
-            if(texturePath){
-                this.renderTexture(texturePath);
-            }
-
-            if(color) {
-                this.renderColor(color);
-            }
-        });
+            this.scene.add(this.car);
+            this.threeRender();
+            this.targetList.push(this.car);
+        }
 
         let controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         controls.addEventListener('change', ::this.threeRender);
         controls.enableDamping = false;
         controls.dampingFactor = 0.25;
         controls.enableZoom = true;
-        controls.maxPolarAngle = Math.PI/2;
+        controls.maxPolarAngle = Math.PI / 2;
         controls.minDistance = 7;
         controls.maxDistance = 11;
 
@@ -238,7 +239,7 @@ export default class Scene extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        const { texturePath, logoPath, color} = nextProps;
+        const {texturePath, logoPath, color} = nextProps;
         const {
             texturePath: prevTexturePath,
             color: prevColor
@@ -246,11 +247,11 @@ export default class Scene extends Component {
 
         this.logoPath = logoPath;
 
-        if(texturePath != prevTexturePath){
+        if (texturePath != prevTexturePath) {
             this.renderTexture(texturePath);
         }
 
-        if(color !== prevColor){
+        if (color !== prevColor) {
             this.renderColor(color);
         }
 
@@ -261,7 +262,7 @@ export default class Scene extends Component {
         let texture = new THREE.TextureLoader().load(texturePath, ::this.threeRender);
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.set( 1, 1 );
+        texture.repeat.set(1, 1);
 
         this.carMaterial.materials.Main_color.color = new THREE.Color(0.5, 0.5, 0.5);
         this.carMaterial.materials.Main_color.specular = new THREE.Color(0.1, 0.1, 0.1);

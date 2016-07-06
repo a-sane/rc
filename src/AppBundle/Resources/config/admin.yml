@@ -1,0 +1,11 @@
+services:
+    app.admin.order:
+        class: AppBundle\Admin\OrderAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Shop", label: "Orders" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Order
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
