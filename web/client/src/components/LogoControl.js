@@ -18,7 +18,7 @@ export default class LogoControl extends Component {
 
     render() {
         const { logoPath } = this.props;
-        let logos = ['f1.png', 'redbull2.png'];
+        let logos = ['rc_logo1.png', 'f1.png', 'redbull2.png'];
 
         let logosLinksTemplate = logos.map((item, index) => {
             return (

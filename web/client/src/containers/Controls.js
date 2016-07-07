@@ -26,7 +26,7 @@ class Controls extends Component {
                         <ColorControl setColor={setColor} color={colorControl.color} />
                     </li>
                     <li>
-                        <TextureControl setTexturePath={setTexturePath} setTextureSecondPath={setTextureSecondPath} texturePath={textureControl.texturePath} textureSecondPath={textureControl.textureSecondPath} />
+                        <TextureControl color={colorControl.color} setTexturePath={setTexturePath} setTextureSecondPath={setTextureSecondPath} texturePath={textureControl.texturePath} textureSecondPath={textureControl.textureSecondPath} />
                     </li>
                     <li>
                         Image<br/>

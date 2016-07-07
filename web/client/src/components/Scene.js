@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react'
 import THREE from 'three';
-;
 
 import OBJLoader from '../threeUtils/OBJLoader';
 OBJLoader(THREE);
@@ -10,6 +9,7 @@ MTLLoader(THREE);
 
 import OrbitControls from '../threeUtils/OrbitControls';
 OrbitControls(THREE);
+
 
 export default class Scene extends Component {
     static propTypes = {
@@ -51,6 +51,9 @@ export default class Scene extends Component {
         this.targetList = [];
 
         this.logoPath = '';
+
+        window.THREE = THREE;
+        window.scene = this.scene;
     }
 
     threeRender() {
@@ -203,7 +206,12 @@ export default class Scene extends Component {
                     });
 
                     this.carMaterial.materials.Main_color.color = new THREE.Color(0.9, 0, 0);
+                    this.carMaterial.materials.Main_color.map = null;
+                    this.carMaterial.materials.Main_color.shininess = 0;
+                    this.carMaterial.materials.Main_color.specular = new THREE.Color(0, 0, 0);
                     this.carMaterial.materials.Main_color.reflectivity = 0.5;
+                    this.carMaterial.materials.Main_color.needsUpdate = true;
+
                     this.car.position.y = -2;
 
                     this.scene.add(this.car);
@@ -239,16 +247,23 @@ export default class Scene extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        const {texturePath, logoPath, color} = nextProps;
+        const {texturePath, textureUnionPath, logoPath, color} = nextProps;
         const {
             texturePath: prevTexturePath,
+            textureUnionPath: prevTextureUnionPath,
             color: prevColor
         } = this.props;
 
         this.logoPath = logoPath;
 
-        if (texturePath != prevTexturePath) {
+        if(textureUnionPath && textureUnionPath != prevTextureUnionPath){
+            this.renderTexture(textureUnionPath);
+        } else if (texturePath && texturePath != prevTexturePath) {
             this.renderTexture(texturePath);
+        } else if(!textureUnionPath && texturePath) {
+            this.renderTexture(texturePath);
+        } else if(!textureUnionPath && !texturePath && color && prevColor && this.props.object) {
+            this.renderColor(color);
         }
 
         if (color !== prevColor) {
