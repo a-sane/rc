@@ -52,6 +52,8 @@ export default class Scene extends Component {
 
         this.logoPath = '';
 
+        this.currTexturePath= '';
+
         window.THREE = THREE;
         window.scene = this.scene;
     }
@@ -274,17 +276,20 @@ export default class Scene extends Component {
     }
 
     renderTexture(texturePath) {
-        let texture = new THREE.TextureLoader().load(texturePath, ::this.threeRender);
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.set(1, 1);
+        if(texturePath != this.currTexturePath) {
+            this.currTexturePath = texturePath;
+            let texture = new THREE.TextureLoader().load(texturePath, ::this.threeRender);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(1, 1);
 
-        this.carMaterial.materials.Main_color.color = new THREE.Color(0.5, 0.5, 0.5);
-        this.carMaterial.materials.Main_color.specular = new THREE.Color(0.1, 0.1, 0.1);
-        this.carMaterial.materials.Main_color.map = texture;
-        this.carMaterial.materials.Main_color.envMap = false;
-        this.carMaterial.materials.Main_color.shininess = 0;
-        this.carMaterial.materials.Main_color.needsUpdate = true;
+            this.carMaterial.materials.Main_color.color = new THREE.Color(0.5, 0.5, 0.5);
+            this.carMaterial.materials.Main_color.specular = new THREE.Color(0.1, 0.1, 0.1);
+            this.carMaterial.materials.Main_color.map = texture;
+            this.carMaterial.materials.Main_color.envMap = false;
+            this.carMaterial.materials.Main_color.shininess = 0;
+            this.carMaterial.materials.Main_color.needsUpdate = true;
+        }
     }
 
     renderColor(color) {
