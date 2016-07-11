@@ -28,7 +28,7 @@ export default class TextureControl extends Component {
 
     render() {
         const { texturePath, textureSecondPath, color } = this.props;
-        let textures = ['rc_geometric.jpg', 'rc_camo.jpg', 'rc_tech1.jpg', 'rc_tech2.jpg', 'rc_tech3.jpg', 'rc_tech4.jpg', 'rc_tech5.jpg', 'rc_tech6.jpg', 'camo.png', 'fire.jpg', 'electro.png', 'gold.jpg', 'dirt.jpg', 'metal.jpg', 'cubes.jpg'];
+        let textures = ['rc_bg5.jpg', 'rc_geometric.jpg', 'rc_camo.jpg', 'rc_tech1.jpg', 'rc_tech2.jpg', 'rc_tech3.jpg', 'rc_tech4.jpg', 'rc_tech5.jpg', 'rc_tech6.jpg', 'camo.png', 'fire.jpg', 'electro.png', 'gold.jpg', 'dirt.jpg', 'metal.jpg', 'cubes.jpg'];
         let texturesSecond = ['skulls.png', 'leaves.png', 'oatumn.png'];
 
         let textureLinksTemplate = textures.map((item, index) => {

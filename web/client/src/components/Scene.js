@@ -164,12 +164,12 @@ export default class Scene extends Component {
         let loader = new THREE.OBJLoader();
         let mtlLoader = new THREE.MTLLoader();
         if (!this.props.object) {
-            mtlLoader.load('model/car4.mtl', (material) => {
+            mtlLoader.load('model/car5.mtl', (material) => {
                 material.preload();
                 this.carMaterial = material;
                 this.props.setSceneMaterial(this.carMaterial);
                 loader.setMaterials(this.carMaterial);
-                loader.load('model/car4.obj', (geometry) => {
+                loader.load('model/car5.obj', (geometry) => {
                     this.car = geometry;
                     this.car.traverse((child) => {
                         if (child instanceof THREE.Mesh && child.name == 'Windows') {
@@ -279,9 +279,9 @@ export default class Scene extends Component {
         if(texturePath != this.currTexturePath) {
             this.currTexturePath = texturePath;
             let texture = new THREE.TextureLoader().load(texturePath, ::this.threeRender);
-            texture.wrapS = THREE.RepeatWrapping;
-            texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set(1, 1);
+            //texture.wrapS = THREE.RepeatWrapping;
+            //texture.wrapT = THREE.RepeatWrapping;
+            //texture.repeat.set(1, 1);
 
             this.carMaterial.materials.Main_color.color = new THREE.Color(0.5, 0.5, 0.5);
             this.carMaterial.materials.Main_color.specular = new THREE.Color(0.1, 0.1, 0.1);
