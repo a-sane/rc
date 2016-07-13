@@ -1,16 +1,23 @@
-import {createStore, applyMiddleware} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 import rootReducer from '../reducers'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import {loStorage} from './enhancers/loStorage'
-
+import routes from '../routes';
+import {reduxReactRouter} from 'redux-router';
+import createHistory from 'history/lib/createBrowserHistory';
 
 export default function configureStore(initialState) {
     const logger = createLogger()
     const store = createStore(
         rootReducer,
         initialState,
-        applyMiddleware(loStorage, thunk, logger)) // <-- добавили его в цепочку перед logger'ом
+        compose(
+            applyMiddleware(loStorage, thunk, logger),
+            reduxReactRouter({routes, createHistory}),
+            //window.devToolsExtension ? window.devToolsExtension() : f => f
+        )
+    )
 
     if (module.hot) {
         module.hot.accept('../reducers', () => {

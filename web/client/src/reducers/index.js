@@ -5,6 +5,9 @@ import colorControl from './colorControl'
 import item from './item'
 import cart from './cart'
 import scene from './scene'
+import login from './login'
+import {reducer as formReducer} from 'redux-form'
+import {routerStateReducer} from 'redux-router';
 
 export default combineReducers({
     textureControl,
@@ -12,5 +15,8 @@ export default combineReducers({
     colorControl,
     item,
     cart,
-    scene
+    scene,
+    login,
+    form: formReducer,
+    router: routerStateReducer
 })

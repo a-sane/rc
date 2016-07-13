@@ -164,12 +164,12 @@ export default class Scene extends Component {
         let loader = new THREE.OBJLoader();
         let mtlLoader = new THREE.MTLLoader();
         if (!this.props.object) {
-            mtlLoader.load('model/car5.mtl', (material) => {
+            mtlLoader.load('model/car4.mtl', (material) => {
                 material.preload();
                 this.carMaterial = material;
                 this.props.setSceneMaterial(this.carMaterial);
                 loader.setMaterials(this.carMaterial);
-                loader.load('model/car5.obj', (geometry) => {
+                loader.load('model/car4.obj', (geometry) => {
                     this.car = geometry;
                     this.car.traverse((child) => {
                         if (child instanceof THREE.Mesh && child.name == 'Windows') {

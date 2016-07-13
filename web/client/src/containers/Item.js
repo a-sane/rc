@@ -54,7 +54,8 @@ class Item extends Component {
                                     setSceneMaterial={this.props.setSceneMaterial}
                                     setSceneLogos={this.props.setSceneLogos}
                                 />
-                                <a href="#" className="add-cart item_add" onClick={::this.onAddToCartClick}>ADD TO CART</a>
+                                <a href="#" className="add-cart item_add" onClick={::this.onAddToCartClick}>ADD TO
+                                    CART</a>
                             </div>
                         </div>
                     </div>
@@ -84,7 +85,6 @@ function mapDispatchToProps(dispatch) {
         addToCart: bindActionCreators(addToCart, dispatch)
     }
 }
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Item)

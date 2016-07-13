@@ -1,24 +1,24 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import App from './containers/App'
-import Home from './containers/Home'
-import Item from './containers/Item'
-import CartOrder from './containers/CartOrder'
 import configureStore from './store/configureStore'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import {ReduxRouter} from 'redux-router';
+import routes from './routes';
+import {loginUserSuccess} from './actions/LoginActions';
 
 const store = configureStore()
 
+let token = localStorage.getItem('token');
+if (token !== null) {
+    store.dispatch(loginUserSuccess(token));
+}
+
 render(
     <Provider store={store}>
-        <Router history={browserHistory}>
-            <Route path='/' component={App}>
-                <IndexRoute component={Home} />
-                <Route path="item" component={Item} />
-                <Route path="order" component={CartOrder} />
-            </Route>
-        </Router>
+        <ReduxRouter>
+            {routes}
+        </ReduxRouter>
     </Provider>,
 document.getElementById('root')
 )

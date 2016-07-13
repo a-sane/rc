@@ -227,8 +227,10 @@
         <a href="#" style="display: none" id="js-print-download">DOWNLOAD</a>
     </div>
 </div>
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.3.2/svg.min.js"></script>
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script>
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
+<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>
 <script>
     var draw = SVG('print-file')
     var defColor = '#f1ef1d'
@@ -285,6 +287,10 @@
         downloadLink.show();
         downloadLink[0].href = svgUrl;
         downloadLink[0].download = "print-file.svg";
+
+
+        //canvg('cnv', svgUrl, { ignoreMouse: true, ignoreAnimation: true })
+
 
         return false
     });
