@@ -14,12 +14,25 @@ export function registerUserSuccess(credentials) {
 }
 
 export function registerUserFailure(error) {
-    return {
-        type: REGISTER_USER_FAILURE,
-        payload: {
-            status: '',
-            statusText: error.statusText
-        }
+    return function (dispatch) {
+        dispatch(
+            {
+                type: REGISTER_USER_FAILURE,
+                payload: {
+                    status: '',
+                    statusText: error.statusText
+                }
+            }
+        )
+        dispatch(
+            {
+                type: 'MODAL_SHOW',
+                payload: {
+                    show: true,
+                    body: error.statusText
+                }
+            }
+        )
     }
 }
 
@@ -37,13 +50,16 @@ export function register(credentials, redirect = "/signin") {
         params.append('firstname', credentials.firstname);
         params.append('lastname', credentials.lastname);
         params.append('username', credentials.username);
+        params.append('country', credentials.country);
+        params.append('city', credentials.city);
+        params.append('address', credentials.address);
         params.append('password', credentials.password);
 
         return fetch('/api/register', {
             method: 'post',
             credentials: 'include',
             body: params
-            })
+        })
             .then(checkHttpStatus)
             .then(parseJSON)
             .then(response => {

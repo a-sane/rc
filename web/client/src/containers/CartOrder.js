@@ -12,12 +12,25 @@ class CartOrder extends Component {
         this.props.cartOrderActions.removeFromCart(id);
     }
 
-    placeOrder(items) {
-        this.props.cartOrderActions.placeOrder(items);
+    onFormSubmit(items, login, e) {
+        e.preventDefault();
+        this.props.cartOrderActions.placeOrder(items, login);
+        return false;
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const {orderPlaced} = nextProps.cart;
+        const {orderPlaced: prevOrderPlaced} = this.props.cart;
+
+        if(orderPlaced != prevOrderPlaced && orderPlaced) {
+            this.refs.paypalForm.submit();
+        }
+
+        return true;
     }
 
     render() {
-        const {cart} = this.props;
+        const {cart, login} = this.props;
         return (
             <div className="container">
                 <div className="check">
@@ -52,7 +65,28 @@ class CartOrder extends Component {
                             <li className="last_price"><span>6350.00</span></li>
                             <div className="clearfix"></div>
                         </ul>
-                        <button className="continue" onClick={()=>(::this.placeOrder(cart.items))}>Place Order</button>
+                        <br/><br/>
+                        {this.props.login.isAuthenticated ?
+                            <div>
+                                <form action="https://www.sandbox.paypal.com/cgi-bin/websc" method="post" onSubmit={this.onFormSubmit.bind(this, cart.items, login)} ref="paypalForm">
+                                    <input type="hidden" name="cmd" value="_xclick"/>
+                                    <input type="hidden" name="business" value="paypal-test2@2sane.ru"/>
+                                    <input id="paypalItemName" type="hidden" name="item_name" value="RC Car"/>
+                                    <input id="paypalQuantity" type="hidden" name="quantity" value="1"/>
+                                    <input id="paypalAmmount" type="hidden" name="amount" value="1500"/>
+                                    <input type="hidden" name="no_shipping" value="1"/>
+                                    <input type="hidden" name="return" value=""/>
+                                    <input type="hidden" name="custom" value=""/>
+                                    <input type="hidden" name="currency_code" value="AUD"/>
+                                    <input type="hidden" name="lc" value="AU"/>
+                                    <input type="hidden" name="bn" value="A4U9QLC6R79S4"/>
+                                    <button type="submit" className="continue">
+                                        Pay Now with Paypal
+                                    </button>
+                                </form>
+                            </div>
+                            : <Link className="continue" to="/signin">Login</Link>
+                        }
                     </div>
 
                     <div className="clearfix"></div>
@@ -64,7 +98,8 @@ class CartOrder extends Component {
 
 function mapStateToProps(state) {
     return {
-        cart: state.cart
+        cart: state.cart,
+        login: state.login
     }
 }
 

@@ -54,7 +54,8 @@ doctrine:
         entity_managers:
             default:
                 mappings:
-                    ApplicationSonataUserBundle: ~
+                    ApplicationSonataUserBundle:
+                        type: annotation
                     SonataUserBundle: ~
                     FOSUserBundle: ~
                     AppBundle: ~

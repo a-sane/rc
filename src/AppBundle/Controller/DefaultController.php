@@ -61,9 +61,14 @@ class DefaultController extends Controller
     {
         $data = json_decode($request->getContent(), true);
         $request->request->replace($data);
-        $items = $request->get('items', null);
 
+        $items = $request->get('items', null);
         if (!$items) {
+            return new JsonResponse(array('message' => 'Invalid request'), 400);
+        }
+
+        $userReq = $request->get('user', null);
+        if (!$userReq) {
             return new JsonResponse(array('message' => 'Invalid request'), 400);
         }
 
@@ -73,7 +78,7 @@ class DefaultController extends Controller
         $order = new Order();
 
         $userRepo = $em->getRepository('ApplicationSonataUserBundle:User');
-        $user = $userRepo->findOneBy(['username' => 'mail@2sane.ru']);
+        $user = $userRepo->findOneBy(['username' => $userReq['userName']]);
 
         $order->setUser($user);
         $em->persist($order);
@@ -117,6 +122,9 @@ class DefaultController extends Controller
 
         $firstname = $request->get('firstname', null);
         $lastname = $request->get('lastname', null);
+        $country = $request->get('country', null);
+        $city = $request->get('city', null);
+        $address = $request->get('address', null);
 
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('ApplicationSonataUserBundle:User');
@@ -130,13 +138,12 @@ class DefaultController extends Controller
             $user->setEmail($username);
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
+            $user->setCountry($country);
+            $user->setCity($city);
+            $user->setAddress($address);
             $user->setRoles(['ROLE_USER']);
             $user->setEnabled(true);
-
-            $factory = $this->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($user);
-            $encodedPassword = $encoder->encodePassword($password, null);
-            $user->setPassword($encodedPassword);
+            $user->setPlainPassword($password);
 
             $em->persist($user);
             $em->flush();

@@ -17,12 +17,25 @@ export function loginUserSuccess(token) {
 
 export function loginUserFailure(error) {
     localStorage.removeItem('token');
-    return {
-        type: LOGIN_USER_FAILURE,
-        payload: {
-            status: '',
-            statusText:''
-        }
+    return function (dispatch) {
+        dispatch(
+            {
+                type: LOGIN_USER_FAILURE,
+                payload: {
+                    status: '',
+                    statusText: error.statusText
+                }
+            }
+        )
+        dispatch(
+            {
+                type: 'MODAL_SHOW',
+                payload: {
+                    show: true,
+                    body: error.statusText
+                }
+            }
+        )
     }
 }
 
@@ -42,7 +55,7 @@ export function logout() {
 export function logoutAndRedirect() {
     return (dispatch, state) => {
         dispatch(logout());
-        dispatch(push('/login'));
+        dispatch(push('/signin'));
     }
 }
 
@@ -76,7 +89,10 @@ export function login(credentials, redirect = "/") {
                 }
             })
             .catch(error => {
-                dispatch(loginUserFailure(error));
+                error.response.json().then(function (data) {
+                    (data.statusText != 'undefined' && data.statusText) ? error.statusText = data.statusText : error.statusText = 'Bad credentials';
+                    dispatch(loginUserFailure(error));
+                })
             })
     }
 }

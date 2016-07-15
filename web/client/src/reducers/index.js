@@ -6,6 +6,7 @@ import item from './item'
 import cart from './cart'
 import scene from './scene'
 import login from './login'
+import modal from './modal'
 import {reducer as formReducer} from 'redux-form'
 import {routerStateReducer} from 'redux-router';
 
@@ -17,6 +18,7 @@ export default combineReducers({
     cart,
     scene,
     login,
+    modal,
     form: formReducer,
     router: routerStateReducer
 })

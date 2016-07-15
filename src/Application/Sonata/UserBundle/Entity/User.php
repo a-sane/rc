@@ -23,11 +23,17 @@ use Doctrine\ORM\Mapping as ORM;
  *   working with object : http://www.doctrine-project.org/projects/orm/2.0/docs/reference/working-with-objects/en
  *
  * @author <yourname> <youremail>
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user_user")
  */
 class User extends BaseUser
 {
     /**
-     * @var int $id
+     * @var integer $id
+     *
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
@@ -35,6 +41,21 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Order", mappedBy="user", cascade={"remove"})
      **/
     private $orders;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false, name="country")
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false, name="city")
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false, name="address")
+     */
+    private $address;
 
     /**
      * Get id
@@ -60,5 +81,53 @@ class User extends BaseUser
     public function setOrders($orders)
     {
         $this->orders = $orders;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
     }
 }
