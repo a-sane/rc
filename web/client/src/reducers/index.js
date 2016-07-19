@@ -7,6 +7,7 @@ import cart from './cart'
 import scene from './scene'
 import login from './login'
 import modal from './modal'
+import zoomControl from './zoomControl'
 import {reducer as formReducer} from 'redux-form'
 import {routerStateReducer} from 'redux-router';
 
@@ -19,6 +20,7 @@ export default combineReducers({
     scene,
     login,
     modal,
+    zoomControl,
     form: formReducer,
     router: routerStateReducer
 })

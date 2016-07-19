@@ -249,11 +249,12 @@ export default class Scene extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        const {texturePath, textureUnionPath, logoPath, color} = nextProps;
+        const {texturePath, textureUnionPath, logoPath, color, zoomFactor} = nextProps;
         const {
             texturePath: prevTexturePath,
             textureUnionPath: prevTextureUnionPath,
-            color: prevColor
+            color: prevColor,
+            zoomFactor: prevZoomFactor
         } = this.props;
 
         this.logoPath = logoPath;
@@ -270,6 +271,10 @@ export default class Scene extends Component {
 
         if (color !== prevColor) {
             this.renderColor(color);
+        }
+
+        if (zoomFactor !== prevZoomFactor) {
+            this.zoom(zoomFactor);
         }
 
         return false;
@@ -299,6 +304,13 @@ export default class Scene extends Component {
         this.carMaterial.materials.Main_color.specular = new THREE.Color(0, 0, 0);
         this.carMaterial.materials.Main_color.reflectivity = 0.5;
         this.carMaterial.materials.Main_color.needsUpdate = true;
+        this.threeRender();
+    }
+
+
+    zoom(zoomFactor) {
+        this.camera.zoom = zoomFactor/10;
+        this.camera.updateProjectionMatrix();
         this.threeRender();
     }
 

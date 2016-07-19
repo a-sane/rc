@@ -11,12 +11,16 @@ import * as logoControlActions from '../actions/LogoControlActions'
 import ColorControl from '../components/ColorControl'
 import * as colorControlActions from '../actions/ColorControlActions'
 
+import ZoomControl from '../components/ZoomControl'
+import * as zoomControlActions from '../actions/ZoomControlActions'
+
 class Controls extends Component {
     render() {
-        const {textureControl, logoControl, colorControl} = this.props
+        const {textureControl, logoControl, colorControl, zoomControl} = this.props
         const {setTexturePath, setTextureSecondPath} = this.props.textureControlActions
         const {setLogoPath} = this.props.logoControlActions
         const {setColor} = this.props.colorControlActions
+        const {setZoomFactor} = this.props.zoomControlActions
 
         return (
             <div className="available">
@@ -32,6 +36,10 @@ class Controls extends Component {
                         Image<br/>
                         <LogoControl setLogoPath={setLogoPath} logoPath={logoControl.logoPath} />
                     </li>
+                    <li>
+                        Zoom<br/>
+                        <ZoomControl setZoomFactor={setZoomFactor} zoomFactor={zoomControl.zoomFactor} />
+                    </li>
                 </ul>
             </div>
         )
@@ -42,7 +50,8 @@ function mapStateToProps(state) {
     return {
         textureControl: state.textureControl,
         logoControl: state.logoControl,
-        colorControl: state.colorControl
+        colorControl: state.colorControl,
+        zoomControl: state.zoomControl,
     }
 }
 
@@ -50,7 +59,8 @@ function mapDispatchToProps(dispatch) {
     return {
         textureControlActions: bindActionCreators(textureControlActions, dispatch),
         logoControlActions: bindActionCreators(logoControlActions, dispatch),
-        colorControlActions: bindActionCreators(colorControlActions, dispatch)
+        colorControlActions: bindActionCreators(colorControlActions, dispatch),
+        zoomControlActions: bindActionCreators(zoomControlActions, dispatch),
     }
 }
 

@@ -26,7 +26,7 @@ class Item extends Component {
     }
 
     render() {
-        const {textureControl, logoControl, colorControl, scene, item} = this.props
+        const {textureControl, logoControl, colorControl, zoomControl, scene, item} = this.props
 
         return (
             <div className="product">
@@ -45,6 +45,7 @@ class Item extends Component {
                                     {...textureControl}
                                     {...logoControl}
                                     {...colorControl}
+                                    {...zoomControl}
                                     canvas={scene.canvas}
                                     object={scene.object}
                                     material={scene.material}
@@ -71,6 +72,7 @@ function mapStateToProps(state) {
         textureControl: state.textureControl,
         logoControl: state.logoControl,
         colorControl: state.colorControl,
+        zoomControl: state.zoomControl,
         scene: state.scene,
         item: state.item
     }
