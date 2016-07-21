@@ -4,9 +4,24 @@ const initialState = {
     material: null,
     logos: {
         'Roof_logo': null,
-        'DoorLeft_logo': null,
-        'DoorRight_logo': null,
-        'Front_logo': null
+        'DoorLeftTop_logo': null,
+        'DoorLeftCenter_logo': null,
+        'DoorLeftBottom_logo': null,
+        'DoorRightTop_logo': null,
+        'DoorRightCenter_logo': null,
+        'DoorRightBottom_logo': null,
+        'Front_logo': null,
+        'BackLeft_logo': null,
+        'BackRight_logo': null,
+        'SpoilerTop_logo': null,
+        'SpoilerLeft_logo': null,
+        'SpoilerRight_logo': null,
+        'WingBackLeft_logo': null,
+        'WingBackRight_logo': null,
+        'WingLeftTop_logo': null,
+        'WingLeftBottom_logo': null,
+        'WingRightTop_logo': null,
+        'WingRightBottom_logo': null,
     }
 }
 

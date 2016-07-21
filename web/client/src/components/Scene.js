@@ -72,22 +72,25 @@ export default class Scene extends Component {
 
         var intersects = ray.intersectObjects(this.targetList, true);
 
+        for (var item in this.activeObjects) {
+            var obj = this.scene.getObjectByName(item);
+            if (!obj.loged && !obj.material.transparent) {
+                obj.material = new THREE.MeshPhongMaterial({
+                    transparent: true,
+                    opacity: 0,
+                    color: new THREE.Color(1, 1, 1)
+                });
+                obj.material.needsUpdate = true;
+                this.threeRender();
+            }
+        }
+
         if (intersects.length > 0) {
             if (!intersects[0].object.loged) {
                 for (var item in this.activeObjects) {
-                    var obj = this.scene.getObjectByName(item);
-                    if (!obj.loged) {
-                        obj.material = new THREE.MeshPhongMaterial({
-                            transparent: true,
-                            opacity: 0,
-                            color: new THREE.Color(1, 1, 1)
-                        });
-                        obj.material.needsUpdate = true;
-                    }
                     if (intersects[0].object.name == item) {
                         intersects[0].object.callback();
                     }
-                    this.threeRender();
                 }
             }
         }
@@ -192,6 +195,7 @@ export default class Scene extends Component {
 
                             for (var item in this.activeObjects) {
                                 if (child.name == item) {
+                                    this.targetList.push(child);
                                     var tr = ::this.threeRender;
                                     child.callback = function () {
                                         this.material = new THREE.MeshPhongMaterial({
@@ -218,7 +222,6 @@ export default class Scene extends Component {
 
                     this.scene.add(this.car);
                     this.threeRender();
-                    this.targetList.push(this.car);
                     this.props.setSceneObject(this.car);
                 });
             });
@@ -243,7 +246,7 @@ export default class Scene extends Component {
         let canvas = container.appendChild(this.renderer.domElement);
 
         canvas.addEventListener('mousemove', ::this.onCanvasMouseMove, false);
-        canvas.addEventListener('mousedown', ::this.onCanvasMouseDown, false);
+        canvas.addEventListener('mouseup', ::this.onCanvasMouseDown, false);
 
         this.props.setSceneCanvas(canvas);
     }
