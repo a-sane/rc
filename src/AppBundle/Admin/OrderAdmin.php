@@ -62,7 +62,7 @@ class OrderAdmin extends AbstractAdmin
                 ])
             ->end()
             ->with('Order Items')
-                ->add('orderItems', null, ['template' => 'AppBundle:Admin:show_order_items.html.twig'])
+                ->add('orderItems', null, ['template' => 'AppBundle:Admin:show_order_items2.html.twig'])
             ->end()
         ;
     }
