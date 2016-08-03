@@ -8,6 +8,7 @@ import scene from './scene'
 import login from './login'
 import modal from './modal'
 import zoomControl from './zoomControl'
+import textLogoControl from './textLogoControl'
 import {reducer as formReducer} from 'redux-form'
 import {routerStateReducer} from 'redux-router';
 
@@ -21,6 +22,7 @@ export default combineReducers({
     login,
     modal,
     zoomControl,
+    textLogoControl,
     form: formReducer,
     router: routerStateReducer
 })
