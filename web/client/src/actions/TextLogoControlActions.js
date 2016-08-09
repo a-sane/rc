@@ -1,11 +1,11 @@
-function makeTextLogo(text, color, dispatch) {
+function makeTextLogo(text, color, fontFace, dispatch) {
     var canvas = document.createElement('canvas');
     canvas.width = 2048;
     canvas.height = 1024;
 
     let ctx = canvas.getContext("2d");
 
-    ctx.font = "500px Arial";
+    ctx.font = "500px " + fontFace;
     ctx.fillStyle = color;
     ctx.textAlign = "center";
     ctx.fillText(text, 1024, 512);
@@ -17,9 +17,9 @@ function makeTextLogo(text, color, dispatch) {
 }
 
 
-export function setTextLogo(text, color) {
+export function setTextLogo(text, color, fontFace) {
     return function (dispatch) {
-        makeTextLogo(text, color, dispatch)
+        makeTextLogo(text, color, fontFace, dispatch)
     }
 }
 

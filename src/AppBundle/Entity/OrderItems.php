@@ -44,7 +44,7 @@ class OrderItems
     private $color;
 
     /**
-     * @ORM\Column(type="string", length=1024, nullable=false, name="logos")
+     * @ORM\Column(type="text", nullable=false, name="logos")
      */
     private $logos;
 
