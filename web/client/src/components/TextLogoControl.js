@@ -24,8 +24,10 @@ export default class TextLogoControl extends Component {
         return (
             <div>
                 <ColorPicker onChange={::this.setColorHandler} color={this.props.color}/>
+                <span style={{fontFamily: 'Lobster'}}>&nbsp;</span>
                 <select name="font_select" id="font_select" style={{marginLeft: 10 + 'px', marginRight: 10 + 'px', width: 150 + 'px'}} ref="textFontFace">
                     <option value="Arial">Arial</option>
+                    <option value="Lobster">Lobster</option>
                     <option value="Tahoma">Tahoma</option>
                     <option value="Georgia">Georgia</option>
                     <option value="Times New Roman">Times New Roman</option>
