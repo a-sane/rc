@@ -30,37 +30,33 @@ class Item extends Component {
 
         return (
             <div className="product">
-                <div className="container">
-                    <div className="col-md-12 product-price1">
-                        <div className="col-md-12 single-top-in simpleCart_shelfItem">
-                            <div className="single-para ">
-                                <h4>{item.name}</h4>
-
-                                <h5 className="item_price">$ {item.price}</h5>
-
-                                <p>{item.description}</p>
-
-                                <Controls />
-                                <Scene
-                                    {...textureControl}
-                                    {...logoControl}
-                                    {...colorControl}
-                                    {...zoomControl}
-                                    canvas={scene.canvas}
-                                    object={scene.object}
-                                    material={scene.material}
-                                    logos={scene.logos}
-                                    setSceneCanvas={this.props.setSceneCanvas}
-                                    setSceneObject={this.props.setSceneObject}
-                                    setSceneMaterial={this.props.setSceneMaterial}
-                                    setSceneLogos={this.props.setSceneLogos}
-                                />
-                                <a href="#" className="add-cart item_add" onClick={::this.onAddToCartClick}>ADD TO
-                                    CART</a>
-                            </div>
-                        </div>
+                <div className="product__top">
+                    <section className="product__description">
+                        <h2 className="product__header">{item.name}</h2>
+                        <div className="product__price">$ {item.price}</div>
+                        <article className="product__text">{item.description}</article>
+                    </section>
+                    <div className="product__image">
+                        <img src="/img/car.jpg" alt="KRAKEN RC TSK-B CLASS 1"/>
                     </div>
-                    <div className="clearfix"></div>
+                </div>
+                <div className="product__constructor">
+                    <Scene
+                        {...textureControl}
+                        {...logoControl}
+                        {...colorControl}
+                        {...zoomControl}
+                        canvas={scene.canvas}
+                        object={scene.object}
+                        material={scene.material}
+                        logos={scene.logos}
+                        setSceneCanvas={this.props.setSceneCanvas}
+                        setSceneObject={this.props.setSceneObject}
+                        setSceneMaterial={this.props.setSceneMaterial}
+                        setSceneLogos={this.props.setSceneLogos}
+                    />
+                    <Controls />
+                    <a href="#" className="product__add" onClick={::this.onAddToCartClick}>ADD TO CART</a>
                 </div>
             </div>
         )

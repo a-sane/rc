@@ -13,43 +13,28 @@ export default class Header extends Component {
         const {cart, login} = this.props
         const {emptyCart} = this.props.cartActions
         return (
-            <div className="header">
-                <div className="header-top">
-                    <div className="container">
-                        <div className="header-left">
-                            <ul>
-                                {this.props.login.isAuthenticated
-                                    ? <li><a href='#' className="lock" onClick={() => this.props.logoutAndRedirect()}>Logout</a></li>
-                                    : <li><Link className="lock" to="/signin">Login</Link></li>
-                                }
-                                {this.props.login.isAuthenticated
-                                    ? ''
-                                    : <li><Link className="lock" to="/register">Register</Link></li>
-                                }
-                                <li></li>
-                            </ul>
-                            <Cart items={cart.items} emptyCart={emptyCart}/>
-                            <div className="clearfix"></div>
+            <header className="header">
+                <div className="header__wrapper">
+                    <h1 className="header__logo">
+                        <Link to="/">
+                            <img src="/img/logo.png" alt="RC Skidlidz"/>
+                        </Link>
+                    </h1>
+                    <nav className="header__nav">
+                        <div className="header__menu">
+                            {this.props.login.isAuthenticated
+                                ? <a href='#' className="header__menu-link" onClick={() => this.props.logoutAndRedirect()}>Logout</a>
+                                : <Link className="header__menu-link" to="/signin">Login</Link>
+                            }
+                            {this.props.login.isAuthenticated
+                                ? ''
+                                : <Link className="header__menu-link" to="/register">Register</Link>
+                            }
                         </div>
-                        <div className="clearfix"></div>
-                    </div>
+                        <Cart items={cart.items} emptyCart={emptyCart}/>
+                    </nav>
                 </div>
-                <div className="container">
-                    <div className="head-top">
-                        <div className="logo">
-                            <Link to="/"><img src="images/logo.png" alt="" height="50"/></Link>
-                        </div>
-                        <div className="h_menu4">
-                            <ul className="memenu skyblue">
-                                <li className="grid"><Link to="/" className="color8">Home</Link></li>
-                                <li><Link to="/item" className="color1">Shop</Link></li>
-                                <li><a className="color6" href="#">Contact</a></li>
-                            </ul>
-                        </div>
-                        <div className="clearfix"></div>
-                    </div>
-                </div>
-            </div>
+            </header>
         )
     }
 }

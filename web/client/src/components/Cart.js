@@ -23,16 +23,11 @@ export default class Cart extends Component {
         const { items } = this.props;
 
         return (
-            <div className="cart box_1">
-                <Link to="/order">
-                    <h3>
-                        <div className="total">
-                            (<span id="simpleCart_quantity" className="simpleCart_quantity">{items.length}</span> items)
-                        </div>
-                        <img src="images/cart.png" alt=""/></h3>
+            <div className="header__cart">
+                <Link className="header__cart-link" to="/order">
+                    {items.length} items
                 </Link>
-
-                <p><a href="#" className="simpleCart_empty" onClick={::this.emptyCart}>Empty Cart</a></p>
+                {/*<a href="#" className="simpleCart_empty" onClick={::this.emptyCart}>Empty Cart</a>*/}
             </div>
         )
     }

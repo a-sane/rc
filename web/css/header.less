@@ -1,0 +1,55 @@
+.header {
+    width: 100%;
+    height: 80px;
+    box-sizing: border-box;
+    background-color: @colorWhite;
+    &__wrapper {
+        width: @min-width;
+        margin: 0 auto;
+        padding: 20px 0 0 0;
+        display: flex;
+        box-sizing: border-box;
+    }
+    &__logo {
+        position: relative;
+        left: -10px;
+    }
+    &__nav {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
+    &__menu {
+        &-link {
+            text-transform: uppercase;
+            color: @colorBlack;
+            text-decoration: none;
+            font-size: 15px;
+            font-style: italic;
+            font-weight: 500;
+            margin-left: 27px;
+            line-height: 26px;
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+    &__cart {
+        margin-left: 63px;
+        &-link {
+            display: block;
+            background: url("/img/ico_cart.png") no-repeat 0 0;
+            box-sizing: border-box;
+            height: 26px;
+            min-width: 26px;
+            padding: 0 0 0 40px;
+            text-transform: uppercase;
+            color: @colorBlack;
+            text-decoration: none;
+            font-size: 15px;
+            font-style: italic;
+            font-weight: 500;
+            line-height: 26px;
+        }
+    }
+}

@@ -9,7 +9,7 @@ import {modalHide} from "../actions/ModalActions"
 class App extends Component {
     render() {
         return (
-            <div className=''>
+            <div className='wrapper'>
                 <AuthErrorModal show={this.props.modal.show} body={this.props.modal.body} closeAction={this.props.closeAction} />
                 <Header />
                 {this.props.children}

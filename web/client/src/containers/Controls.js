@@ -27,28 +27,23 @@ class Controls extends Component {
         const {setTextLogo, setTextLogoColor} = this.props.textLogoControlActions
 
         return (
-            <div className="available">
-                <ul>
-                    <li>
-                        Color<br/>
-                        <ColorControl setColor={setColor} color={colorControl.color} />
-                    </li>
-                    <li>
-                        <TextureControl color={colorControl.color} setTexturePath={setTexturePath} setTextureSecondPath={setTextureSecondPath} texturePath={textureControl.texturePath} textureSecondPath={textureControl.textureSecondPath} />
-                    </li>
-                    <li>
-                        Image<br/>
-                        <LogoControl setLogoPath={setLogoPath} logoPath={logoControl.logoPath} />
-                    </li>
-                    <li>
-                        Text Logo<br/>
-                        <TextLogoControl setTextLogo={setTextLogo} setTextLogoColor={setTextLogoColor} color={textLogoControl.color} />
-                    </li>
-                    <li>
-                        Zoom<br/>
-                        <ZoomControl setZoomFactor={setZoomFactor} zoomFactor={zoomControl.zoomFactor} />
-                    </li>
-                </ul>
+            <div className="product__constructor-controls">
+                Color<br/>
+                <ColorControl setColor={setColor} color={colorControl.color}/>
+
+                <TextureControl color={colorControl.color} setTexturePath={setTexturePath}
+                                setTextureSecondPath={setTextureSecondPath} texturePath={textureControl.texturePath}
+                                textureSecondPath={textureControl.textureSecondPath}/>
+
+                Image<br/>
+                <LogoControl setLogoPath={setLogoPath} logoPath={logoControl.logoPath}/>
+
+                Text Logo<br/>
+                <TextLogoControl setTextLogo={setTextLogo} setTextLogoColor={setTextLogoColor}
+                                 color={textLogoControl.color}/>
+
+                Zoom<br/>
+                <ZoomControl setZoomFactor={setZoomFactor} zoomFactor={zoomControl.zoomFactor}/>
             </div>
         )
     }

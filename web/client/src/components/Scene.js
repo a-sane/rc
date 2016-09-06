@@ -25,8 +25,8 @@ export default class Scene extends Component {
     constructor() {
         super();
 
-        const width = 800;
-        const height = 500;
+        const width = 560;
+        const height = 520;
 
         this.scene = new THREE.Scene();
 
@@ -63,8 +63,8 @@ export default class Scene extends Component {
     }
 
     onCanvasMouseMove(event) {
-        this.mouse.x = (event.offsetX / 800) * 2 - 1;
-        this.mouse.y = -(event.offsetY / 500) * 2 + 1;
+        this.mouse.x = (event.offsetX / 560) * 2 - 1;
+        this.mouse.y = -(event.offsetY / 520) * 2 + 1;
 
         var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 1);
         vector.unproject(this.camera);
@@ -98,8 +98,8 @@ export default class Scene extends Component {
     }
 
     onCanvasMouseDown(event) {
-        this.mouse.x = (event.offsetX / 800) * 2 - 1;
-        this.mouse.y = -(event.offsetY / 500) * 2 + 1;
+        this.mouse.x = (event.offsetX / 560) * 2 - 1;
+        this.mouse.y = -(event.offsetY / 520) * 2 + 1;
 
         var vector = new THREE.Vector3(this.mouse.x, this.mouse.y, 1);
         vector.unproject(this.camera);
@@ -319,7 +319,7 @@ export default class Scene extends Component {
 
     render() {
         return (
-            <div ref="container"></div>
+            <div className="product__constructor-canvas" ref="container"></div>
         )
     }
 }
