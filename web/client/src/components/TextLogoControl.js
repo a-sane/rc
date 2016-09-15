@@ -40,7 +40,6 @@ export default class TextLogoControl extends Component {
 
         return (
             <div className="controls__logo-text">
-                <span style={{fontFamily: 'Lobster'}}>&nbsp;</span>
                 <div className="controls__logo-text-tw">
                     <input
                         className="controls__logo-text-input"
@@ -65,6 +64,7 @@ export default class TextLogoControl extends Component {
                         )
                     }) }
                 </div>
+                <span style={{fontFamily: 'Lobster'}}>&nbsp;</span>
             </div>
         )
     }
