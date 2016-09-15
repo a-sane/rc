@@ -11,33 +11,36 @@ export default class LogoControl extends Component {
         logoPath: ''
     }
 
-    onLogoClick(e) {
-        e.preventDefault();
-        this.props.setLogoPath(e.target.getAttribute('src') ? e.target.getAttribute('src') : '');
+    onLogoClick(logoPath) {
+        this.props.setLogoPath(logoPath ? logoPath : '');
     }
 
     render() {
         const { logoPath } = this.props;
-        let logos = ['rc_logo1.png', 'f1.png', 'redbull2.png'];
 
-        let logosLinksTemplate = logos.map((item, index) => {
-            return (
-                <a
-                    href="#"
-                    className={logoPath === `${modelPath}${item}` ? 'controls-selected' : ''}
-                    key={`logo_${index}`}
-                >
-                    <img src={`${modelPath}${item}`} alt="" width="50" onClick={::this.onLogoClick}/>
-                </a>
-            )
-        })
+        const logos = [
+            'rc_logo1.png',
+            'f1.png',
+            'redbull2.png'
+        ];
 
         return (
-            <div>
-                <a href="#" class="controls-selected" onClick={::this.onLogoClick}>
-                    no image
-                </a>
-                {logosLinksTemplate}
+            <div className="controls__logo-img">
+                <div
+                    className={ logoPath === '' ? 'controls__logo-img-item selected' : 'controls__logo-img-item' }
+                    style={{ backgroundImage: "url('/img/ico_noimage.png')" }}
+                    onClick={ this.onLogoClick.bind(this, '') }
+                />
+                { logos.map((item, index) => {
+                    return (
+                        <div
+                            className={ logoPath === `${modelPath}${item}` ? 'controls__logo-img-item selected' : 'controls__logo-img-item' }
+                            key={`logo_${index}`}
+                            style={{ backgroundImage: `url("${modelPath}${item}")` }}
+                            onClick={ this.onLogoClick.bind(this, `${modelPath}${item}`) }
+                        />
+                    )
+                }) }
             </div>
         )
     }

@@ -229,9 +229,9 @@
     </div>
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.3.2/svg.min.js"></script>
-<script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script>
-<script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
-<script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>
+<script type="text/javascript" src="http://canvg.github.io/canvg/rgbcolor.js"></script>
+<script type="text/javascript" src="http://canvg.github.io/canvg/StackBlur.js"></script>
+<script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script>
 <script>
     var draw = SVG('print-file')
     var defColor = '#f1ef1d'
@@ -374,15 +374,11 @@
         }
 
 
-
-
         patternEls.style('fill: ')
         pattern = draw.pattern(1750, 2240, function(add) {
             add.image(that.data('img'), 1750, 2240)
         }).attr('class', 'patt');
         patternEls.fill(pattern)
-
-
 
         var svgData = $("#print-file")[0].outerHTML;
         var svgBlob = new Blob([svgData], {type:"image/svg+xml;charset=utf-8"});

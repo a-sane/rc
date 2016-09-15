@@ -1,8 +1,16 @@
 import React, {PropTypes, Component} from 'react'
 import ColorPicker from 'rc-color-picker'
 import 'rc-color-picker/assets/index.css';
+import { throttle } from "lodash";
 
 export default class TextLogoControl extends Component {
+    constructor() {
+        super();
+        this.state = {
+            fontFamily: "Arial",
+        };
+    }
+
     static propTypes = {
         textLogoPath: PropTypes.string,
         setTextLogo: PropTypes.func.isRequired,
@@ -11,30 +19,52 @@ export default class TextLogoControl extends Component {
 
     setColorHandler(color) {
         this.props.setTextLogoColor(color.color);
+        this.props.setTextLogo(this.refs.textLogoVal.value, color.color, this.state.fontFamily);
     }
 
-    onApplyClick(e) {
-        e.preventDefault();
-        let text = this.refs.textLogoVal.value;
-        let fontFace = this.refs.textFontFace.value;
-        this.props.setTextLogo(text, this.props.color, fontFace);
+    onFontClick(fontFamily) {
+        this.props.setTextLogo(this.refs.textLogoVal.value, this.props.color, fontFamily);
+        this.setState({ fontFamily: fontFamily });
     }
 
     render() {
+
+        const fonts = [
+            "Arial",
+            "Lobster",
+            "Tahoma",
+            "Georgia",
+            "Times New Roman",
+            "Impact"
+        ];
+
         return (
-            <div>
-                <ColorPicker onChange={::this.setColorHandler} color={this.props.color}/>
+            <div className="controls__logo-text">
                 <span style={{fontFamily: 'Lobster'}}>&nbsp;</span>
-                <select name="font_select" id="font_select" style={{marginLeft: 10 + 'px', marginRight: 10 + 'px', width: 150 + 'px'}} ref="textFontFace">
-                    <option value="Arial">Arial</option>
-                    <option value="Lobster">Lobster</option>
-                    <option value="Tahoma">Tahoma</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                    <option value="Impact">Impact</option>
-                </select>
-                <input type="text" ref="textLogoVal"/>
-                <button onClick={::this.onApplyClick}>Apply</button>
+                <div className="controls__logo-text-tw">
+                    <input
+                        className="controls__logo-text-input"
+                        type="text" ref="textLogoVal"
+                        placeholder="Type your text here"
+                        maxLength="9"
+                        onChange={ this.onFontClick.bind(this, this.state.fontFamily) }
+                    />
+                    <ColorPicker onChange={::this.setColorHandler} color={this.props.color}/>
+                </div>
+                <div className="controls__logo-text-items">
+                    { fonts.map((item, index) => {
+                        return (
+                            <div
+                                className={ this.state.fontFamily === item ? 'controls__logo-text-item selected' : 'controls__logo-text-item' }
+                                key={`text_${index}`}
+                                style={{ fontFamily: item }}
+                                onClick={ this.onFontClick.bind(this, item) }
+                            >
+                                Aa
+                            </div>
+                        )
+                    }) }
+                </div>
             </div>
         )
     }

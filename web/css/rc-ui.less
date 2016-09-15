@@ -1,0 +1,20 @@
+.rc-ui {
+    &__switcher {
+        display: flex;
+        height: 16px;
+        box-sizing: border-box;
+        align-items: center;
+        input {
+            display: none;
+        }
+        label {
+            background: url("/img/ico_ui_switcher_off.png") no-repeat 0 0;
+            width: 40px;
+            height: 16px;
+            margin: 0 6px;
+        }
+        input:checked + label {
+            background: url("/img/ico_ui_switcher_on.png") no-repeat 0 0;
+        }
+    }
+}

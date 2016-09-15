@@ -13,9 +13,17 @@ class Item extends Component {
 
     onAddToCartClick(e) {
         e.preventDefault();
+
+        let texturePath = "";
+        if(this.props.textureControl.texturePath) {
+            let texturePath = this.props.textureControl.texturePath;
+        } else if(this.props.textureControl.textureSecondPath) {
+            let texturePath = this.props.textureControl.textureSecondPath;
+        }
+
         const item = {
             id: uniqueId('cart_item_'),
-            texturePath: this.props.textureControl.texturePath,
+            texturePath: texturePath,
             color: this.props.colorControl.color ? this.props.colorControl.color : '#ff0000',
             screenshot: this.props.scene.canvas.toDataURL(),
             logos: this.props.scene.logos,
@@ -56,7 +64,9 @@ class Item extends Component {
                         setSceneLogos={this.props.setSceneLogos}
                     />
                     <Controls />
-                    <a href="#" className="product__add" onClick={::this.onAddToCartClick}>ADD TO CART</a>
+                </div>
+                <div className="product__add">
+                    <div className="product__add-btn" onClick={::this.onAddToCartClick}>ADD TO CART</div>
                 </div>
             </div>
         )

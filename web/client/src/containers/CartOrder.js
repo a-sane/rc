@@ -32,13 +32,13 @@ class CartOrder extends Component {
     render() {
         const {cart, login} = this.props;
         return (
-            <div className="container">
+            <div className="product">
                 <div className="check">
                     <h1>My Shopping Bag ({cart.items.length})</h1>
                     <div className="col-md-12 cart-items">
-                        {cart.items.map(item => (
+                        { cart.items.map(item => (
                             <div className="cart-header" key={uniqueId('cart_order_item_')}>
-                                <div className="close1" onClick={()=>(::this.removeItemFromCart(item.id))}></div>
+                                <div className="close1" onClick={()=>(::this.removeItemFromCart(item.id))}>REMOVE</div>
                                 <div className="cart-sec simpleCart_shelfItem">
                                     <div className="cart-item cyc">
                                         <img src={item.screenshot} className="img-responsive" alt=""/>
@@ -57,7 +57,7 @@ class CartOrder extends Component {
                                     <div className="clearfix"></div>
                                 </div>
                             </div>
-                        ))}
+                        )) }
                     </div>
                     <div className="col-md-3 cart-total">
                         <ul className="total_price">
