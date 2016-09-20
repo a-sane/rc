@@ -30,12 +30,12 @@ export default class TextLogoControl extends Component {
     render() {
 
         const fonts = [
-            "Arial",
-            "Lobster",
-            "Tahoma",
-            "Georgia",
-            "Times New Roman",
-            "Impact"
+            "paintscratchregular",
+            "nightmare_5regular",
+            "battlestarregular",
+            "pocket_ball_condensedCn",
+            "seven_swordsmen_bbregular",
+            "chicken_buttregular"
         ];
 
         return (
@@ -64,7 +64,12 @@ export default class TextLogoControl extends Component {
                         )
                     }) }
                 </div>
-                <span style={{fontFamily: 'Lobster'}}>&nbsp;</span>
+                <span style={{fontFamily: 'paintscratchregular'}}>&nbsp;</span>
+                <span style={{fontFamily: 'nightmare_5regular'}}>&nbsp;</span>
+                <span style={{fontFamily: 'battlestarregular'}}>&nbsp;</span>
+                <span style={{fontFamily: 'pocket_ball_condensedCn'}}>&nbsp;</span>
+                <span style={{fontFamily: 'seven_swordsmen_bbregular'}}>&nbsp;</span>
+                <span style={{fontFamily: 'chicken_buttregular'}}>&nbsp;</span>
             </div>
         )
     }
