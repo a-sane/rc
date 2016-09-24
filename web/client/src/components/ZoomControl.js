@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react'
 
 export default class ZoomControl extends Component {
     static propTypes = {
-        zoomFactor: PropTypes.integer,
+        zoomFactor: PropTypes.number,
         setZoomFactor: PropTypes.func.isRequired,
     }
 

@@ -1,3 +1,5 @@
+import {checkHttpStatus, parseJSON} from '../utils/index';
+
 function unionTextures(path1, path2, color, dispatch) {
     var canvas = document.createElement('canvas');
     canvas.width = 512;
@@ -64,5 +66,70 @@ export function setTextureSecondPath(path1, path2, color) {
                 payload: color
             })
         }
+    }
+}
+
+export function getTextures() {
+    return function (dispatch) {
+        dispatch({
+            type: 'GET_TEXTURES_REQUEST'
+        });
+        return fetch('/api/get_textures/texture', {
+            method: 'get'
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then(response => {
+                try {
+                    dispatch({
+                        type: 'GET_TEXTURES_SUCCESS',
+                        payload: response
+                    })
+                } catch (e) {
+                    dispatch({
+                        type: 'GET_TEXTURES_FAIL',
+                        payload: response
+                    })
+                }
+            })
+            .catch(error => {
+                dispatch({
+                    type: 'GET_TEXTURES_FAIL',
+                    payload: response
+                })
+            })
+    }
+}
+
+
+export function getTexturesSecond() {
+    return function (dispatch) {
+        dispatch({
+            type: 'GET_TEXTURES_REQUEST'
+        });
+        return fetch('/api/get_textures/texture_second', {
+            method: 'get'
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then(response => {
+                try {
+                    dispatch({
+                        type: 'GET_TEXTURES_SECOND_SUCCESS',
+                        payload: response
+                    })
+                } catch (e) {
+                    dispatch({
+                        type: 'GET_TEXTURES_SECOND_FAIL',
+                        payload: response
+                    })
+                }
+            })
+            .catch(error => {
+                dispatch({
+                    type: 'GET_TEXTURES_SECOND_FAIL',
+                    payload: response
+                })
+            })
     }
 }

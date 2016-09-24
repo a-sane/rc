@@ -9,7 +9,7 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 
 export default (
     <Route path='/' component={App}>
-        <IndexRoute component={Home}/>
+        <IndexRoute component={Item}/>
         <Route path="item" component={Item}/>
         <Route path="order" component={CartOrder}/>
         <Route path="signin" component={Login}/>

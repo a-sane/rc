@@ -29,6 +29,7 @@ class AppKernel extends Kernel
 
             new Speicher210\CloudinaryBundle\Speicher210CloudinaryBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

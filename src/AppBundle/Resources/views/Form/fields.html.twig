@@ -1,0 +1,8 @@
+{% block image_widget %}
+    {% spaceless %}
+        {% if data %}
+           <img src="/upload/configurator/{{ data }}" width="200"/>
+        {% endif %}
+        <input type="hidden" name="{{ full_name }}" value="{{ data }}"/>
+    {% endspaceless %}
+{% endblock %}

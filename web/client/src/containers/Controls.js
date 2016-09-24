@@ -37,12 +37,12 @@ class Controls extends Component {
     }
 
     render() {
-        const {textureControl, logoControl, colorControl, zoomControl, textLogoControl} = this.props
-        const {setTexturePath, setTextureSecondPath} = this.props.textureControlActions
-        const {setLogoPath} = this.props.logoControlActions
-        const {setColor} = this.props.colorControlActions
-        const {setZoomFactor} = this.props.zoomControlActions
-        const {setTextLogo, setTextLogoColor} = this.props.textLogoControlActions
+        const {textureControl, logoControl, colorControl, zoomControl, textLogoControl} = this.props;
+        const {setTexturePath, setTextureSecondPath, getTextures, getTexturesSecond} = this.props.textureControlActions;
+        const {setLogoPath, getLogos} = this.props.logoControlActions;
+        const {setColor} = this.props.colorControlActions;
+        const {setZoomFactor} = this.props.zoomControlActions;
+        const {setTextLogo, setTextLogoColor} = this.props.textLogoControlActions;
 
         const palette = [
             "#f61922",
@@ -73,9 +73,15 @@ class Controls extends Component {
                     </div>
                 </div>
                 <div className={ this.state.isTexture ? 'controls__second-texture' : 'hidden' }>
-                    <TextureControl color={colorControl.color} setTexturePath={setTexturePath}
-                                          setTextureSecondPath={setTextureSecondPath} texturePath={textureControl.texturePath}
-                                          textureSecondPath={textureControl.textureSecondPath}/>
+                    <TextureControl
+                        color={ colorControl.color }
+                        getTextures={ getTextures }
+                        setTexturePath={ setTexturePath }
+                        setTextureSecondPath={ setTextureSecondPath }
+                        textures={ textureControl.textures }
+                        texturePath={ textureControl.texturePath }
+                        textureSecondPath={ textureControl.textureSecondPath }
+                    />
                 </div>
                 <div className={ this.state.isTexture ? 'hidden' : 'controls__color' }>
                     <div className="controls__color-current">
@@ -95,9 +101,15 @@ class Controls extends Component {
                     <div className="controls__title">
                         Second Texture
                     </div>
-                    <TextureSecondControl color={colorControl.color} setTexturePath={setTexturePath}
-                                    setTextureSecondPath={setTextureSecondPath} texturePath={textureControl.texturePath}
-                                    textureSecondPath={textureControl.textureSecondPath}/>
+                    <TextureSecondControl
+                        color={colorControl.color}
+                        getTexturesSecond={ getTexturesSecond }
+                        setTexturePath={setTexturePath}
+                        setTextureSecondPath={setTextureSecondPath}
+                        texturesSecond={ textureControl.texturesSecond }
+                        texturePath={textureControl.texturePath}
+                        textureSecondPath={textureControl.textureSecondPath}
+                    />
                 </div>
 
                 <div className="controls__logo">
@@ -115,7 +127,12 @@ class Controls extends Component {
                         </div>
                     </div>
                     <div className={ this.state.isLogo ? 'controls__logo-img' : 'hidden' }>
-                        <LogoControl setLogoPath={setLogoPath} logoPath={logoControl.logoPath}/>
+                        <LogoControl
+                            setLogoPath={ setLogoPath }
+                            logoPath={ logoControl.logoPath }
+                            logos={ logoControl.logos }
+                            getLogos={ getLogos }
+                        />
                     </div>
                     <div className={ this.state.isLogo ? 'hidden' : 'controls__logo-text' }>
                         <TextLogoControl setTextLogo={setTextLogo} setTextLogoColor={setTextLogoColor}

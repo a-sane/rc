@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Image;
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderItems;
 use Application\Sonata\UserBundle\Entity\User;
@@ -18,7 +19,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('shop/index.html.twig', []);
+        return $this->render('shop/single.html.twig', []);
     }
 
     /**
@@ -149,7 +150,35 @@ class DefaultController extends Controller
             $em->flush();
         }
 
-        return new JsonResponse(['message' => 'OK PUK'], 200);
+        return new JsonResponse(['message' => 'OK'], 200);
+    }
+
+    /**
+     * @Route("/api/get_textures/{type}", name="api_get_textures")
+     * @Method({"GET"})
+     */
+    public function apiGetTexturesAction($type)
+    {
+        $names = [
+            'texture' => Image::TYPE_TEXTURE,
+            'texture_second' => Image::TYPE_SECOND_TEXTURE,
+            'logo' => Image::TYPE_LOGO
+        ];
+
+        if(isset($names[$type])) {
+            $em = $this->getDoctrine()->getManager();
+            $imageRepo = $em->getRepository('AppBundle:Image');
+            $images = $imageRepo->findBy(['imageType' => $names[$type]]);
+
+            $imagesArray = [];
+            foreach ($images as $image) {
+                array_push($imagesArray, '/upload/configurator/' . $image->getImageName());
+            }
+
+            return new JsonResponse($imagesArray, 200);
+        }
+
+        return new JsonResponse([], 400);
     }
 
 }

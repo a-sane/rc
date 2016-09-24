@@ -1,12 +1,13 @@
 import React, { PropTypes, Component } from 'react'
-import { modelPath } from '../constans'
 
 export default class TextureSecondControl extends Component {
 
     static propTypes = {
+        texturesSecond: PropTypes.array,
         texturePath: PropTypes.string,
         setTexturePath: PropTypes.func.isRequired,
-        setTextureSecondPath: PropTypes.func.isRequired
+        setTextureSecondPath: PropTypes.func.isRequired,
+        getTexturesSecond: PropTypes.func.isRequired,
     }
 
     onTextureSecondClick(texturePath, color, textureSecondPath) {
@@ -14,14 +15,19 @@ export default class TextureSecondControl extends Component {
         this.props.setTextureSecondPath(texturePath, textureSecondPath ? textureSecondPath : '', color);
     }
 
-    render() {
-        const { texturePath, textureSecondPath, color } = this.props;
+    componentWillMount() {
+        this.props.getTexturesSecond();
+    }
 
-       const texturesSecond = [
+    render() {
+        const { texturePath, textureSecondPath, color, texturesSecond } = this.props;
+
+       /*const texturesSecond = [
            'skulls.png',
            'leaves.png',
            'oatumn.png'
-       ];
+       ];*/
+
 
         return (
             <div className="controls__texture-items">
@@ -33,11 +39,11 @@ export default class TextureSecondControl extends Component {
                 { texturesSecond.map((item, index) => {
                     return (
                         <div
-                            className={ textureSecondPath === `${modelPath}${item}` ? 'controls__texture-item' +
+                            className={ textureSecondPath === item ? 'controls__texture-item' +
                             ' selected' : 'controls__texture-item' }
                             key={`texture_second_${index}`}
-                            style={{ backgroundImage: `url("${modelPath}${item}")` }}
-                            onClick={ this.onTextureSecondClick.bind(this, texturePath, color, `${modelPath}${item}`) }
+                            style={{ backgroundImage: `url("${item}")` }}
+                            onClick={ this.onTextureSecondClick.bind(this, texturePath, color, item) }
                         />
                     )
                 }) }

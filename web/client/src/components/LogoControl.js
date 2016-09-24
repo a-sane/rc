@@ -1,10 +1,11 @@
 import React, {PropTypes, Component} from 'react'
-import {modelPath} from '../constans'
 
 export default class LogoControl extends Component {
     static propTypes = {
         logoPath: PropTypes.string,
-        setLogoPath: PropTypes.func.isRequired
+        setLogoPath: PropTypes.func.isRequired,
+        logos: PropTypes.array,
+        getLogos: PropTypes.func.isRequired,
     }
 
     static defaultProps = {
@@ -15,14 +16,12 @@ export default class LogoControl extends Component {
         this.props.setLogoPath(logoPath ? logoPath : '');
     }
 
-    render() {
-        const { logoPath } = this.props;
+    componentWillMount() {
+        this.props.getLogos();
+    }
 
-        const logos = [
-            'rc_logo1.png',
-            'f1.png',
-            'redbull2.png'
-        ];
+    render() {
+        const { logoPath, logos } = this.props;
 
         return (
             <div className="controls__logo-img">
@@ -34,10 +33,10 @@ export default class LogoControl extends Component {
                 { logos.map((item, index) => {
                     return (
                         <div
-                            className={ logoPath === `${modelPath}${item}` ? 'controls__logo-img-item selected' : 'controls__logo-img-item' }
+                            className={ logoPath === item ? 'controls__logo-img-item selected' : 'controls__logo-img-item' }
                             key={`logo_${index}`}
-                            style={{ backgroundImage: `url("${modelPath}${item}")` }}
-                            onClick={ this.onLogoClick.bind(this, `${modelPath}${item}`) }
+                            style={{ backgroundImage: `url("${item}")` }}
+                            onClick={ this.onLogoClick.bind(this, item) }
                         />
                     )
                 }) }

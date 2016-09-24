@@ -1,11 +1,12 @@
 import React, { PropTypes, Component } from 'react'
-import { modelPath } from '../constans'
 
 export default class TextureControl extends Component {
     static propTypes = {
+        textures: PropTypes.array,
         texturePath: PropTypes.string,
         setTexturePath: PropTypes.func.isRequired,
-        setTextureSecondPath: PropTypes.func.isRequired
+        setTextureSecondPath: PropTypes.func.isRequired,
+        getTextures: PropTypes.func.isRequired,
     }
 
     onTextureClick(texturePath, color) {
@@ -13,20 +14,12 @@ export default class TextureControl extends Component {
         this.props.setTextureSecondPath(texturePath, '', color);
     }
 
-    render() {
-        const { texturePath, color } = this.props;
+    componentWillMount() {
+        this.props.getTextures();
+    }
 
-        const textures = [
-            'rc_bg5.jpg',
-            'rc_geometric.jpg',
-            'rc_camo.jpg',
-            'rc_tech2.jpg',
-            'camo.png',
-            'fire.jpg',
-            'dirt.jpg',
-            'metal.jpg',
-            'cubes.jpg'
-        ];
+    render() {
+        const { texturePath, color, textures } = this.props;
 
         return (
             <div className="controls__texture-items">
@@ -38,10 +31,10 @@ export default class TextureControl extends Component {
                 { textures.map((item, index) => {
                         return (
                             <div
-                                className={ texturePath === `${modelPath}${item}` ? 'controls__texture-item selected' : 'controls__texture-item' }
+                                className={ texturePath === item ? 'controls__texture-item selected' : 'controls__texture-item' }
                                 key={ `texture_${index}` }
-                                style={{ backgroundImage: `url("${modelPath}${item}")` }}
-                                onClick={ this.onTextureClick.bind(this, `${modelPath}${item}`, color) }
+                                style={{ backgroundImage: `url("${item}")` }}
+                                onClick={ this.onTextureClick.bind(this, item, color) }
                             />
                         )
                 }) }

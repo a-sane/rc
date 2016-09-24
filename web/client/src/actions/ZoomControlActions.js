@@ -1,6 +1,8 @@
 export function setZoomFactor(zoomFactor) {
-    return {
-        type: 'SET_ZOOM_FACTOR',
-        payload: zoomFactor
+    return function (dispatch) {
+        dispatch({
+            type: 'SET_ZOOM_FACTOR',
+            payload: zoomFactor
+        })
     }
 }
