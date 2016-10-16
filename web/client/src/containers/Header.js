@@ -8,7 +8,7 @@ import * as cartActions from '../actions/CartActions'
 
 import {logoutAndRedirect} from '../actions/LoginActions';
 
-export default class Header extends Component {
+class Header extends Component {
     render() {
         const {cart, login} = this.props
         const {emptyCart} = this.props.cartActions
