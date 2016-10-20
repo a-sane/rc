@@ -23,10 +23,10 @@ export default class ZoomControl extends Component {
     render() {
         return (
             <div>
-                <button class="controls-selected" onClick={this.onZoomInClick.bind(this)}>
+                <button className="controls-selected" onClick={this.onZoomInClick.bind(this)}>
                     +
                 </button>
-                <button class="controls-selected" onClick={this.onZoomOutClick.bind(this)}>
+                <button className="controls-selected" onClick={this.onZoomOutClick.bind(this)}>
                     -
                 </button>
             </div>

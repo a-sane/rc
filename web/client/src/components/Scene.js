@@ -74,7 +74,7 @@ export default class Scene extends Component {
 
         for (var item in this.activeObjects) {
             var obj = this.scene.getObjectByName(item);
-            if (!obj.loged && !obj.material.transparent) {
+            if (obj && !obj.loged && !obj.material.transparent) {
                 obj.material = new THREE.MeshPhongMaterial({
                     transparent: true,
                     opacity: 0,
@@ -109,7 +109,7 @@ export default class Scene extends Component {
 
         if (intersects.length > 0) {
             for (var item in this.activeObjects) {
-                if (intersects[0].object.name == item) {
+                if (intersects[0].object.name === item) {
                     var texture, material;
                     if (this.logoPath) {
                         texture = new THREE.TextureLoader().load(this.logoPath, () => {
@@ -147,11 +147,11 @@ export default class Scene extends Component {
 
         let container = this.refs.container;
 
-        let directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+        let directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(0, 4, 0);
         this.scene.add(directionalLight);
 
-        let directionalLight2 = new THREE.DirectionalLight(0xffffff, 2);
+        let directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight2.position.set(0, -4, 0);
         this.scene.add(directionalLight2);
 
@@ -194,7 +194,7 @@ export default class Scene extends Component {
                             child.material.needsUpdate = true;
 
                             for (var item in this.activeObjects) {
-                                if (child.name == item) {
+                                if (child.name === item) {
                                     this.targetList.push(child);
                                     var tr = ::this.threeRender;
                                     child.callback = function () {
@@ -291,7 +291,7 @@ export default class Scene extends Component {
             //texture.wrapT = THREE.RepeatWrapping;
             //texture.repeat.set(1, 1);
 
-            this.carMaterial.materials.Main_color.color = new THREE.Color(0.5, 0.5, 0.5);
+            this.carMaterial.materials.Main_color.color = new THREE.Color(1, 1, 1);
             this.carMaterial.materials.Main_color.specular = new THREE.Color(0.1, 0.1, 0.1);
             this.carMaterial.materials.Main_color.map = texture;
             this.carMaterial.materials.Main_color.envMap = false;
