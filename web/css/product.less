@@ -1,9 +1,39 @@
 .product {
-    margin: 58px auto 140px auto;
-    width: @min-width;
+    margin: 0 auto 140px auto;
     position: relative;
+    &__selector {
+        width: 100%;
+        background-color: @colorWhite;
+        &-items {
+            width: @max-width;
+            margin: 0 auto;
+            display: flex;
+            height: 320px;
+        }
+        &-item {
+            width: 50%;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            opacity: 0.2;
+            &-title {
+                text-transform: uppercase;
+                font-size: 16px;
+                margin-top: 10px;
+            }
+            &.selected {
+                opacity: 1;
+                cursor: default;
+            }
+        }
+    }
     &__top {
         display: flex;
+        width: @min-width;
+        margin: 35px auto 0 auto;
     }
     &__description {
         width: 550px;
@@ -37,10 +67,12 @@
         right: -29px;
     }
     &__constructor {
+        width: @min-width;
+        margin: 0 auto;
         background-color: @colorLightBlue;
         box-shadow: 0 20px 40px rgba(0, 40, 77, 0.2);
         display: flex;
-        height: 520px;
+        min-height: 520px;
         &-canvas {
             width: 560px;
         }

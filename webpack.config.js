@@ -6,8 +6,8 @@ var NpmInstallPlugin = require('npm-install-webpack-plugin');
 // var dashboard = new Dashboard();
 
 module.exports = {
-    devtool: 'source-map',
-    //devtool: 'eval-cheap-module-source-map',
+    //devtool: 'source-map',
+    devtool: 'eval-cheap-module-source-map',
     entry: [
         'babel-polyfill',
         './web/client/src/index'

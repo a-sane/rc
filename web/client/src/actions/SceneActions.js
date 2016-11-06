@@ -26,3 +26,10 @@ export function setSceneLogos(logos) {
         payload: logos
     }
 }
+
+export function setSceneItem(item) {
+    return {
+        type: 'SET_SCENE_ITEM',
+        payload: item
+    }
+}
