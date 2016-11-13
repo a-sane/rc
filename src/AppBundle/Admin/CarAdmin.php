@@ -2,13 +2,12 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Image;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use AppBundle\Form\Type\ImageType;
+use AppBundle\Form\Type\CarImageType;
 
 class CarAdmin extends AbstractAdmin
 {
@@ -56,7 +55,7 @@ class CarAdmin extends AbstractAdmin
             ->add('description')
             ->add('modelFileName')
             ->add('imageFile', 'file', array('label' => 'Image', 'required' => false, 'data_class' => 'Symfony\Component\HttpFoundation\File\File'), array('allow_add' => false))
-            ->add('imageName', new ImageType(), array('required' => 'false', 'label' => 'Preview'), array('type' => 'image'))
+            ->add('imageName', new CarImageType(), array('required' => 'false', 'label' => 'Preview'), array('type' => 'image'))
         ;
     }
 

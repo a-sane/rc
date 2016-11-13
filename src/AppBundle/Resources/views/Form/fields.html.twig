@@ -6,3 +6,12 @@
         <input type="hidden" name="{{ full_name }}" value="{{ data }}"/>
     {% endspaceless %}
 {% endblock %}
+
+{% block car_image_widget %}
+    {% spaceless %}
+        {% if data %}
+            <img src="/upload/car/{{ data }}" width="200"/>
+        {% endif %}
+        <input type="hidden" name="{{ full_name }}" value="{{ data }}"/>
+    {% endspaceless %}
+{% endblock %}
