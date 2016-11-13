@@ -7,12 +7,12 @@ export function setLogoPath(path) {
     }
 }
 
-export function getLogos() {
+export function getLogos(carId) {
     return function (dispatch) {
         dispatch({
             type: 'GET_LOGOS_REQUEST'
         });
-        return fetch('/api/get_textures/logo', {
+        return fetch(`/api/get_textures/logo/${carId}`, {
             method: 'get'
         })
             .then(checkHttpStatus)
@@ -33,7 +33,7 @@ export function getLogos() {
             .catch(error => {
                 dispatch({
                     type: 'GET_LOGOS_FAIL',
-                    payload: response
+                    payload: error
                 })
             })
     }

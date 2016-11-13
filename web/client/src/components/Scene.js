@@ -207,7 +207,7 @@ export default class Scene extends Component {
                 this.carMaterial.materials.Main_color.reflectivity = 0.5;
                 this.carMaterial.materials.Main_color.needsUpdate = true;
 
-                item === "car4" ? this.car.position.y = -2 : this.car.position.y = 0;
+                item === 'car4' ? this.car.position.y = -2 : this.car.position.y = 0;
 
                 this.scene.add(this.car);
                 this.props.setSceneObject(this.car);

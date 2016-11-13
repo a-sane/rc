@@ -7,6 +7,7 @@ export default class TextureControl extends Component {
         setTexturePath: PropTypes.func.isRequired,
         setTextureSecondPath: PropTypes.func.isRequired,
         getTextures: PropTypes.func.isRequired,
+        car: PropTypes.object.isRequired
     }
 
     onTextureClick(texturePath, color) {
@@ -15,17 +16,21 @@ export default class TextureControl extends Component {
     }
 
     componentWillMount() {
-        this.props.getTextures();
+        this.props.getTextures(this.props.car.id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.props.car.id != nextProps.car.id ? this.props.getTextures(nextProps.car.id) : null;
     }
 
     render() {
         const { texturePath, color, textures } = this.props;
 
         return (
-            <div className="controls__texture-items">
+            <div className='controls__texture-items'>
                 <div
-                    className={ texturePath === '' ? 'controls__texture-item selected' : 'controls__texture-item' }
-                    style={{ backgroundImage: "url('/img/ico_noimage.png')" }}
+                    className={ !texturePath ? 'controls__texture-item selected' : 'controls__texture-item' }
+                    style={{ backgroundImage: 'url(/img/ico_noimage.png)' }}
                     onClick={ this.onTextureClick.bind(this, '', color) }
                 />
                 { textures.map((item, index) => {

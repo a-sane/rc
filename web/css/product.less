@@ -171,7 +171,7 @@
         &-items {
             margin-top: 9px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             width: 520px;
             position: relative;
             flex-wrap: wrap;
@@ -187,6 +187,10 @@
             box-sizing: border-box;
             border: 1px solid #cacaca;
             cursor: pointer;
+            margin-right: 10px;
+            &:last-child {
+                margin-right: 0;
+            }
             &.selected {
                 border: 4px solid #00b1ff;
             }
@@ -209,7 +213,7 @@
         &-img {
             margin-top: 9px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             width: 520px;
             position: relative;
             flex-wrap: wrap;
@@ -225,6 +229,10 @@
                 box-sizing: border-box;
                 border: 1px solid @colorLightGray;
                 cursor: pointer;
+                margin-right: 10px;
+                &:last-child {
+                    margin-right: 0;
+                }
                 &.selected {
                     border: 4px solid  #00b1ff;
                 }

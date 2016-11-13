@@ -10,7 +10,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use AppBundle\Form\Type\ImageType;
 
-class ImageAdmin extends AbstractAdmin
+class CarAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -19,8 +19,7 @@ class ImageAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('imageName')
-            ->add('imageType')
+            ->add('name')
         ;
     }
 
@@ -32,9 +31,9 @@ class ImageAdmin extends AbstractAdmin
 
         $listMapper
             ->add('id')
-            ->add('imageName', null, ['template' => 'AppBundle:Admin:list_image.html.twig'])
-            ->add('imageType', null, ['template' => 'AppBundle:Admin:list_image_type.html.twig'])
-            ->add('car')
+            ->add('name')
+            ->add('price')
+            ->add('imageName', null, ['template' => 'AppBundle:Admin:list_car_image.html.twig'])
             ->add('_action', null, array(
                 'actions' => array(
                     'show' => array(),
@@ -51,16 +50,13 @@ class ImageAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('car')
+            ->add('name')
+            ->add('slug')
+            ->add('price')
+            ->add('description')
+            ->add('modelFileName')
             ->add('imageFile', 'file', array('label' => 'Image', 'required' => false, 'data_class' => 'Symfony\Component\HttpFoundation\File\File'), array('allow_add' => false))
             ->add('imageName', new ImageType(), array('required' => 'false', 'label' => 'Preview'), array('type' => 'image'))
-            ->add('imageType', 'choice', [
-                'choices' => [
-                    Image::TYPE_TEXTURE => 'Texture',
-                    Image::TYPE_SECOND_TEXTURE => 'Second Texture',
-                    Image::TYPE_LOGO => 'Logo'
-                ]
-            ])
         ;
     }
 
@@ -71,8 +67,7 @@ class ImageAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('imageName')
-            ->add('imageType')
+            ->add('name')
         ;
     }
 }

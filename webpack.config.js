@@ -1,9 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
 var NpmInstallPlugin = require('npm-install-webpack-plugin');
-// var Dashboard = require('webpack-dashboard');
-// var DashboardPlugin = require('webpack-dashboard/plugin');
-// var dashboard = new Dashboard();
 
 module.exports = {
     //devtool: 'source-map',
@@ -22,18 +19,17 @@ module.exports = {
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new NpmInstallPlugin(),
-        // new DashboardPlugin(dashboard.setData)
     ],
-    module: { //Обновлено
-        loaders: [ //добавили babel-loader
+    module: {
+        loaders: [
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader"
+                loader: 'style-loader!css-loader'
             },
             {
                 loaders: ['babel-loader'],
                 include: [
-                    path.resolve(__dirname, "web/client/src"),
+                    path.resolve(__dirname, 'web/client/src'),
                 ],
                 test: /\.js$/,
                 plugins: ['transform-runtime'],

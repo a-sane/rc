@@ -60,7 +60,7 @@ export function setTextureSecondPath(path1, path2, color) {
             dispatch({
                 type: 'SET_TEXTURE_UNION_PATH',
                 payload: path2
-            });
+            })
             dispatch({
                 type: 'SET_COLOR',
                 payload: color
@@ -69,12 +69,12 @@ export function setTextureSecondPath(path1, path2, color) {
     }
 }
 
-export function getTextures() {
+export function getTextures(carId) {
     return function (dispatch) {
         dispatch({
             type: 'GET_TEXTURES_REQUEST'
         });
-        return fetch('/api/get_textures/texture', {
+        return fetch(`/api/get_textures/texture/${carId}`, {
             method: 'get'
         })
             .then(checkHttpStatus)
@@ -95,19 +95,18 @@ export function getTextures() {
             .catch(error => {
                 dispatch({
                     type: 'GET_TEXTURES_FAIL',
-                    payload: response
+                    payload: error
                 })
             })
     }
 }
 
-
-export function getTexturesSecond() {
+export function getTexturesSecond(carId) {
     return function (dispatch) {
         dispatch({
             type: 'GET_TEXTURES_REQUEST'
         });
-        return fetch('/api/get_textures/texture_second', {
+        return fetch(`/api/get_textures/texture_second/${carId}`, {
             method: 'get'
         })
             .then(checkHttpStatus)
@@ -128,7 +127,7 @@ export function getTexturesSecond() {
             .catch(error => {
                 dispatch({
                     type: 'GET_TEXTURES_SECOND_FAIL',
-                    payload: response
+                    payload: error
                 })
             })
     }

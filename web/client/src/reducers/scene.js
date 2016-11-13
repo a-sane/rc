@@ -2,7 +2,6 @@ const initialState = {
     canvas: null,
     object: null,
     material: null,
-    item: "car4",
     logos: {
         'Roof_logo': null,
         'DoorLeftTop_logo': null,
@@ -44,8 +43,6 @@ export default function scene(state = initialState, action) {
             return { ...state, material: action.payload };
         case 'SET_SCENE_LOGOS':
             return { ...state, logos: action.payload };
-        case 'SET_SCENE_ITEM':
-            return { ...state, item: action.payload };
         default:
             return state;
     }

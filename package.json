@@ -17,7 +17,6 @@
     "babel-preset-stage-0": "^6.5.0",
     "cloudinary": "1.4.1",
     "css-loader": "0.23.1",
-    "eslint": "^2.12.0",
     "eslint-plugin-react": "^5.1.1",
     "express": "^4.13.4",
     "npm-install-webpack-plugin": "^4.0.3",
@@ -28,7 +27,9 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.9.1",
+    "classnames": "^2.2.5",
     "es6-promise": "3.2.1",
+    "eslint": "^3.10.0",
     "imports-loader": "0.6.5",
     "isomorphic-fetch": "2.2.1",
     "jwt-decode": "2.0.1",

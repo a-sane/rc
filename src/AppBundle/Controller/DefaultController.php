@@ -6,6 +6,7 @@ use AppBundle\Entity\Image;
 use AppBundle\Entity\Order;
 use AppBundle\Entity\OrderItems;
 use Application\Sonata\UserBundle\Entity\User;
+use Doctrine\ORM\Query;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -131,7 +132,7 @@ class DefaultController extends Controller
         $userRepo = $em->getRepository('ApplicationSonataUserBundle:User');
         $user = $userRepo->findOneBy(['username' => $username]);
 
-        if($user) {
+        if ($user) {
             return new JsonResponse(['statusText' => 'Username already exist'], 400);
         } else {
             $user = new User();
@@ -154,10 +155,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/api/get_textures/{type}", name="api_get_textures")
+     * @Route("/api/get_textures/{type}/{modelId}", name="api_get_textures")
      * @Method({"GET"})
      */
-    public function apiGetTexturesAction($type)
+    public function apiGetTexturesAction($type, $modelId)
     {
         $names = [
             'texture' => Image::TYPE_TEXTURE,
@@ -165,10 +166,15 @@ class DefaultController extends Controller
             'logo' => Image::TYPE_LOGO
         ];
 
-        if(isset($names[$type])) {
+        if (isset($names[$type])) {
             $em = $this->getDoctrine()->getManager();
             $imageRepo = $em->getRepository('AppBundle:Image');
-            $images = $imageRepo->findBy(['imageType' => $names[$type]]);
+
+            if ($type == 'logo') {
+                $images = $imageRepo->findBy(['imageType' => $names[$type]]);
+            } else {
+                $images = $imageRepo->findBy(['imageType' => $names[$type], 'car' => $modelId]);
+            }
 
             $imagesArray = [];
             foreach ($images as $image) {
@@ -176,6 +182,27 @@ class DefaultController extends Controller
             }
 
             return new JsonResponse($imagesArray, 200);
+        }
+
+        return new JsonResponse([], 400);
+    }
+
+
+    /**
+     * @Route("/api/get_cars", name="api_get_cars")
+     * @Method({"GET"})
+     */
+    public function apiGetCarsAction()
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Car');
+
+        $cars = $repository
+            ->createQueryBuilder('c')
+            ->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+
+        if ($cars) {
+            return new JsonResponse($cars, 200);
         }
 
         return new JsonResponse([], 400);

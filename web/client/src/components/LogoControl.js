@@ -6,10 +6,7 @@ export default class LogoControl extends Component {
         setLogoPath: PropTypes.func.isRequired,
         logos: PropTypes.array,
         getLogos: PropTypes.func.isRequired,
-    }
-
-    static defaultProps = {
-        logoPath: ''
+        car: PropTypes.object.isRequired
     }
 
     onLogoClick(logoPath) {
@@ -17,17 +14,17 @@ export default class LogoControl extends Component {
     }
 
     componentWillMount() {
-        this.props.getLogos();
+        this.props.getLogos(this.props.car.id);
     }
 
     render() {
         const { logoPath, logos } = this.props;
 
         return (
-            <div className="controls__logo-img">
+            <div className='controls__logo-img'>
                 <div
                     className={ logoPath === '' ? 'controls__logo-img-item selected' : 'controls__logo-img-item' }
-                    style={{ backgroundImage: "url('/img/ico_noimage.png')" }}
+                    style={{ backgroundImage: 'url(/img/ico_noimage.png)' }}
                     onClick={ this.onLogoClick.bind(this, '') }
                 />
                 { logos.map((item, index) => {

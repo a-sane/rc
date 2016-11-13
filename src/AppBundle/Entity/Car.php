@@ -5,18 +5,15 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="images")
+ * @ORM\Table(name="cars")
  * @Vich\Uploadable
  */
-class Image
+class Car
 {
-    const TYPE_TEXTURE = 0;
-    const TYPE_SECOND_TEXTURE = 1;
-    const TYPE_LOGO = 2;
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -36,7 +33,7 @@ class Image
 
     /**
      *
-     * @Vich\UploadableField(mapping="configurator_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="car_image", fileNameProperty="imageName")
      *
      * @var File
      */
@@ -50,17 +47,44 @@ class Image
     private $imageName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      *
-     * @var integer
+     * @var string
      */
-    private $imageType;
+    private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Car", inversedBy="images", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="car_id", referencedColumnName="id")
+     * @Gedmo\Slug(fields={"name"}, updatable=false)
+     * @ORM\Column(length=255, unique=true, nullable=true)
+     * @var string
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="text")
+     *
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     *
+     * @var string
+     */
+    private $modelFileName;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="car", cascade={"remove"})
      **/
-    private $car;
+    private $images;
 
     public function __construct()
     {
@@ -119,7 +143,7 @@ class Image
     /**
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
      *
-     * @return Image
+     * @return Car
      */
     public function setImageFile(File $image = null)
     {
@@ -143,7 +167,7 @@ class Image
     /**
      * @param string $imageName
      *
-     * @return Image
+     * @return Car
      */
     public function setImageName($imageName)
     {
@@ -161,48 +185,102 @@ class Image
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getImageType()
+    public function getName()
     {
-        return $this->imageType;
+        return $this->name;
     }
 
     /**
-     * @param int $imageType
+     * @param string $name
      */
-    public function setImageType($imageType)
+    public function setName($name)
     {
-        $this->imageType = $imageType;
-    }
-
-    public function getTextureTypeName() {
-        $names = [
-            Image::TYPE_TEXTURE => "Texture",
-            Image::TYPE_SECOND_TEXTURE => "Second Texture",
-            Image::TYPE_LOGO => "Logo"
-        ];
-
-        return $names[$this->getImageType()];
+        $this->name = $name;
     }
 
     /**
      * @return mixed
      */
-    public function getCar()
+    public function getSlug()
     {
-        return $this->car;
+        return $this->slug;
     }
 
     /**
-     * @param mixed $car
+     * @param mixed $slug
      */
-    public function setCar($car)
+    public function setSlug($slug)
     {
-        $this->car = $car;
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param string $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelFileName()
+    {
+        return $this->modelFileName;
+    }
+
+    /**
+     * @param string $modelFileName
+     */
+    public function setModelFileName($modelFileName)
+    {
+        $this->modelFileName = $modelFileName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param mixed $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
     }
 
     public function __toString(){
-        return $this->getImageName();
+        return $this->getName();
     }
 }

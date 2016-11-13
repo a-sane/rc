@@ -37,7 +37,7 @@ class Controls extends Component {
     }
 
     render() {
-        const {textureControl, logoControl, colorControl, zoomControl, textLogoControl} = this.props;
+        const {textureControl, logoControl, colorControl, zoomControl, textLogoControl, car} = this.props;
         const {setTexturePath, setTextureSecondPath, getTextures, getTexturesSecond} = this.props.textureControlActions;
         const {setLogoPath, getLogos} = this.props.logoControlActions;
         const {setColor} = this.props.colorControlActions;
@@ -45,16 +45,16 @@ class Controls extends Component {
         const {setTextLogo, setTextLogoColor} = this.props.textLogoControlActions;
 
         const palette = [
-            "#f61922",
-            "#248dfc",
-            "#29b784",
-            "#fc7406",
-            "#f0c600",
-            "#101011",
-            "#d6cfbf",
-            "#b8b6c1",
-            "#6c6c6c",
-            "#116798"
+            '#f61922',
+            '#248dfc',
+            '#29b784',
+            '#fc7406',
+            '#f0c600',
+            '#101011',
+            '#d6cfbf',
+            '#b8b6c1',
+            '#6c6c6c',
+            '#116798'
         ];
 
         return (
@@ -81,6 +81,7 @@ class Controls extends Component {
                         textures={ textureControl.textures }
                         texturePath={ textureControl.texturePath }
                         textureSecondPath={ textureControl.textureSecondPath }
+                        car={ car }
                     />
                 </div>
                 <div className={ this.state.isTexture ? 'hidden' : 'controls__color' }>
@@ -102,13 +103,14 @@ class Controls extends Component {
                         Second Texture
                     </div>
                     <TextureSecondControl
-                        color={colorControl.color}
+                        color={ colorControl.color }
                         getTexturesSecond={ getTexturesSecond }
-                        setTexturePath={setTexturePath}
-                        setTextureSecondPath={setTextureSecondPath}
+                        setTexturePath={ setTexturePath }
+                        setTextureSecondPath={ setTextureSecondPath }
                         texturesSecond={ textureControl.texturesSecond }
-                        texturePath={textureControl.texturePath}
-                        textureSecondPath={textureControl.textureSecondPath}
+                        texturePath={ textureControl.texturePath }
+                        textureSecondPath={ textureControl.textureSecondPath }
+                        car={ car }
                     />
                 </div>
 
@@ -132,6 +134,7 @@ class Controls extends Component {
                             logoPath={ logoControl.logoPath }
                             logos={ logoControl.logos }
                             getLogos={ getLogos }
+                            car={ car }
                         />
                     </div>
                     <div className={ this.state.isLogo ? 'hidden' : 'controls__logo-text' }>
@@ -149,25 +152,24 @@ class Controls extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        textureControl: state.textureControl,
-        logoControl: state.logoControl,
-        colorControl: state.colorControl,
-        zoomControl: state.zoomControl,
-        textLogoControl: state.textLogoControl,
+export default connect(
+    (state) => {
+        return {
+            textureControl: state.textureControl,
+            logoControl: state.logoControl,
+            colorControl: state.colorControl,
+            zoomControl: state.zoomControl,
+            textLogoControl: state.textLogoControl,
+            car: state.item.car
+        }
+    },
+    (dispatch) => {
+        return {
+            textureControlActions: bindActionCreators(textureControlActions, dispatch),
+            logoControlActions: bindActionCreators(logoControlActions, dispatch),
+            colorControlActions: bindActionCreators(colorControlActions, dispatch),
+            zoomControlActions: bindActionCreators(zoomControlActions, dispatch),
+            textLogoControlActions: bindActionCreators(textLogoControlActions, dispatch),
+        }
     }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        textureControlActions: bindActionCreators(textureControlActions, dispatch),
-        logoControlActions: bindActionCreators(logoControlActions, dispatch),
-        colorControlActions: bindActionCreators(colorControlActions, dispatch),
-        zoomControlActions: bindActionCreators(zoomControlActions, dispatch),
-        textLogoControlActions: bindActionCreators(textLogoControlActions, dispatch),
-    }
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Controls)
+)(Controls)

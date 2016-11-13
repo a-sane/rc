@@ -8,6 +8,7 @@ export default class TextureSecondControl extends Component {
         setTexturePath: PropTypes.func.isRequired,
         setTextureSecondPath: PropTypes.func.isRequired,
         getTexturesSecond: PropTypes.func.isRequired,
+        car: PropTypes.object.isRequired
     }
 
     onTextureSecondClick(texturePath, color, textureSecondPath) {
@@ -16,24 +17,21 @@ export default class TextureSecondControl extends Component {
     }
 
     componentWillMount() {
-        this.props.getTexturesSecond();
+        this.props.getTexturesSecond(this.props.car.id);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.props.car.id != nextProps.car.id ? this.props.getTexturesSecond(nextProps.car.id) : null;
     }
 
     render() {
         const { texturePath, textureSecondPath, color, texturesSecond } = this.props;
 
-       /*const texturesSecond = [
-           'skulls.png',
-           'leaves.png',
-           'oatumn.png'
-       ];*/
-
-
         return (
-            <div className="controls__texture-items">
+            <div className='controls__texture-items'>
                 <div
-                    className={ textureSecondPath === '' ? 'controls__texture-item selected' : 'controls__texture-item' }
-                    style={{ backgroundImage: "url('/img/ico_noimage.png')" }}
+                    className={ !textureSecondPath ? 'controls__texture-item selected' : 'controls__texture-item' }
+                    style={{ backgroundImage: 'url(/img/ico_noimage.png)' }}
                     onClick={ this.onTextureSecondClick.bind(this, texturePath, color, '') }
                 />
                 { texturesSecond.map((item, index) => {
